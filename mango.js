@@ -2,9 +2,10 @@
 "use strict";
 
 function* where(iterable, predicate) {
-    for (const a of iterable)
+    for (const a of iterable) {
 	if (predicate(a))
 	    yield a;
+    }
 } // where
 
 function* take(iterable, count) {
@@ -24,11 +25,10 @@ function* drop(iterable, count) {
 	yield a;
 } // drop
 
-function* concat(first, second) {
-    for (const a of from(first))
-	yield a;
-    for (const a of from(second))
-	yield a;
+function* concat(...items) {
+    for (const item of items)
+	for (const a of from(item))
+	    yield a;
 } // concat
 
 function mango_range(iterable) {
@@ -40,12 +40,22 @@ function mango_range(iterable) {
 	where: predicate => mango_range(where(iterable, predicate)),
 	take: count => mango_range(take(iterable, count)),
 	drop: count => mango_range(drop(iterable, count)),
-	concat: seq2 => mango_range(concat(iterable, seq2))
+	concat: (...iterable2) => mango_range(concat(iterable, iterable2))
     }
 } // mango_range
 
 function from(iterable) {
-    return mango_range(iterable);
+    if (iterable == null)
+	return mango_range([]);
+
+    if (Array.isArray(iterable)) {
+	if (iterable.length == 1)
+	    return from(iterable[0]);
+	return mango_range(iterable);
+    }
+    if (iterable[Symbol.iterator])
+	return mango_range(iterable);
+    return mango_range([iterable]);
 } // from
 
 
@@ -55,12 +65,26 @@ const array = [1, 2, 3, 4, 5, 6, 7];
 function dump(iterable, msg) {
     console.log("============");
     console.log(msg);
-    for(const a of iterable)
-	console.log(a);
+
+    let first = true;
+    for(const a of iterable) {
+	if (!first)
+	    process.stdout.write(", ");
+	process.stdout.write(a.toString());
+	first = false;
+    }
+    process.stdout.write("\n");
 }
 
 
-dump(from(array), "from");
+dump(from(array), `from(${array})`);
+dump(from(1), "from(1)");
+dump(from(true), "from(true)");
+dump(from(false), "from(false)");
+dump(from(["pig","dog"]), "from(['pig','dog'])");
+dump(from("pigeon"), "from('pigeon')");
+dump(from(null), "from(null)");
+dump(from(undefined), "from(undefined)");
 
 dump(from(array).where(n => n < 6), "where < 6");
 dump(from(array).where(n => n > 2), "where > 2");
@@ -75,3 +99,6 @@ dump(from(array).drop(13), "drop 13");
 dump(from(array).take(5).drop(3), "take 5 drop 3");
 
 dump(from(array).concat(array), "concat(array)");
+dump(from(array).concat(1, 2, 3), "concat(1, 2, 3)");
+dump(from(array).concat([4,5,6]), "concat([4, 5, 6])");
+dump(from(array).concat('a','b','c',[4,5,6],'d','e','f','grout'), "concat'a','b','c',[4, 5, 6],'d','e','f', 'grout')");
