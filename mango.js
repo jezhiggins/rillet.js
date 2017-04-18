@@ -61,7 +61,11 @@ class MangoRange {
     take(count) { return new MangoRange(take(this.iterable, count)); }
     drop(count) { return new MangoRange(drop(this.iterable, count)); }
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
+
+    toArray() { return Array.from(this.iterable); }
 } // class MangoRange
+
+module.exports = MangoRange;
 
 //////////////////////
 const array = [1, 2, 3, 4, 5, 6, 7];
@@ -80,19 +84,6 @@ function dump(iterable, msg) {
     process.stdout.write("\n");
 }
 
-
-dump(MangoRange.from(array), `from(${array})`);
-dump(MangoRange.from(1), "from(1)");
-dump(MangoRange.from(true), "from(true)");
-dump(MangoRange.from(false), "from(false)");
-dump(MangoRange.from(["pig","dog"]), "from(['pig','dog'])");
-dump(MangoRange.from("pigeon"), "from('pigeon')");
-dump(MangoRange.from(null), "from(null)");
-dump(MangoRange.from(undefined), "from(undefined)");
-
-dump(MangoRange.from(array).where(n => n < 6), "where < 6");
-dump(MangoRange.from(array).where(n => n > 2), "where > 2");
-dump(MangoRange.from(array).where(n => n > 2).where(n => n < 6), "where > 2 and where < 6");
 
 dump(MangoRange.from(array).take(3), "take 3");
 dump(MangoRange.from(array).take(13), "take 13");
