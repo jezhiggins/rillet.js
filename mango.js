@@ -27,37 +27,41 @@ function* drop(iterable, count) {
 
 function* concat(...items) {
     for (const item of items)
-	for (const a of from(item))
+	for (const a of MangoRange.from(item))
 	    yield a;
 } // concat
 
-function mango_range(iterable) {
-    return {
-	[Symbol.iterator]: function*() {
-	    for (const a of iterable)
-		yield a;
-	},
-	where: predicate => mango_range(where(iterable, predicate)),
-	take: count => mango_range(take(iterable, count)),
-	drop: count => mango_range(drop(iterable, count)),
-	concat: (...iterable2) => mango_range(concat(iterable, iterable2))
+class MangoRange {
+    static from(iterable) {
+	if (iterable == null)
+	    return new MangoRange([]);
+
+	if (Array.isArray(iterable)) {
+	    if (iterable.length == 1)
+		return MangoRange.from(iterable[0]);
+	    return new MangoRange(iterable);
+	}
+	if (iterable[Symbol.iterator])
+	    return new MangoRange(iterable);
+	return new MangoRange([iterable]);
+    } // from
+
+    ///////////////////////////
+    constructor(iterable) {
+	this.iterable = iterable;
+    } // constructor
+
+
+    *[Symbol.iterator]() {
+	for (const a of this.iterable)
+	    yield a;
     }
-} // mango_range
 
-function from(iterable) {
-    if (iterable == null)
-	return mango_range([]);
-
-    if (Array.isArray(iterable)) {
-	if (iterable.length == 1)
-	    return from(iterable[0]);
-	return mango_range(iterable);
-    }
-    if (iterable[Symbol.iterator])
-	return mango_range(iterable);
-    return mango_range([iterable]);
-} // from
-
+    where(predicate) { return new MangoRange(where(this.iterable, predicate)); }
+    take(count) { return new MangoRange(take(this.iterable, count)); }
+    drop(count) { return new MangoRange(drop(this.iterable, count)); }
+    concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
+} // class MangoRange
 
 //////////////////////
 const array = [1, 2, 3, 4, 5, 6, 7];
@@ -77,28 +81,28 @@ function dump(iterable, msg) {
 }
 
 
-dump(from(array), `from(${array})`);
-dump(from(1), "from(1)");
-dump(from(true), "from(true)");
-dump(from(false), "from(false)");
-dump(from(["pig","dog"]), "from(['pig','dog'])");
-dump(from("pigeon"), "from('pigeon')");
-dump(from(null), "from(null)");
-dump(from(undefined), "from(undefined)");
+dump(MangoRange.from(array), `from(${array})`);
+dump(MangoRange.from(1), "from(1)");
+dump(MangoRange.from(true), "from(true)");
+dump(MangoRange.from(false), "from(false)");
+dump(MangoRange.from(["pig","dog"]), "from(['pig','dog'])");
+dump(MangoRange.from("pigeon"), "from('pigeon')");
+dump(MangoRange.from(null), "from(null)");
+dump(MangoRange.from(undefined), "from(undefined)");
 
-dump(from(array).where(n => n < 6), "where < 6");
-dump(from(array).where(n => n > 2), "where > 2");
-dump(from(array).where(n => n > 2).where(n => n < 6), "where > 2 and where < 6");
+dump(MangoRange.from(array).where(n => n < 6), "where < 6");
+dump(MangoRange.from(array).where(n => n > 2), "where > 2");
+dump(MangoRange.from(array).where(n => n > 2).where(n => n < 6), "where > 2 and where < 6");
 
-dump(from(array).take(3), "take 3");
-dump(from(array).take(13), "take 13");
+dump(MangoRange.from(array).take(3), "take 3");
+dump(MangoRange.from(array).take(13), "take 13");
 
-dump(from(array).drop(3), "drop 3");
-dump(from(array).drop(13), "drop 13");
+dump(MangoRange.from(array).drop(3), "drop 3");
+dump(MangoRange.from(array).drop(13), "drop 13");
 
-dump(from(array).take(5).drop(3), "take 5 drop 3");
+dump(MangoRange.from(array).take(5).drop(3), "take 5 drop 3");
 
-dump(from(array).concat(array), "concat(array)");
-dump(from(array).concat(1, 2, 3), "concat(1, 2, 3)");
-dump(from(array).concat([4,5,6]), "concat([4, 5, 6])");
-dump(from(array).concat('a','b','c',[4,5,6],'d','e','f','grout'), "concat'a','b','c',[4, 5, 6],'d','e','f', 'grout')");
+dump(MangoRange.from(array).concat(array), "concat(array)");
+dump(MangoRange.from(array).concat(1, 2, 3), "concat(1, 2, 3)");
+dump(MangoRange.from(array).concat([4,5,6]), "concat([4, 5, 6])");
+dump(MangoRange.from(array).concat('a','b','c',[4,5,6],'d','e','f','grout'), "concat'a','b','c',[4, 5, 6],'d','e','f', 'grout')");
