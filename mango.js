@@ -26,10 +26,17 @@ function* drop(iterable, count) {
 } // drop
 
 function* concat(...items) {
-    for (let item of items) {
-	for (const a of MangoRange.from(item))
-	    yield a;
-    }
+    for (const item of items) {
+	for (const a of MangoRange.from(item)) {
+	    // embedded iterable - flatten
+	    if (a[Symbol.iterator] && typeof a != "string") {
+		for (const b of concat(...a))
+		    yield b;
+	    }
+	    else
+		yield a;
+	} // for ...
+    } /// for ...
 } // concat
 
 class MangoRange {
@@ -49,7 +56,7 @@ class MangoRange {
 	    if (iterable.length == 1)
 		return MangoRange.from(iterable[0]);
 	    return new MangoRange(iterable);
-	}
+	} // if ...
 	if (iterable[Symbol.iterator])
 	    return new MangoRange(iterable);
 	return new MangoRange([iterable]);
