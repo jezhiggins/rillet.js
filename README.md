@@ -6,9 +6,9 @@ The Javascript Array methods (and libraries like LoDash and Underscore) provide 
 Mango.js uses ES6 iterators to build these same methods in a lazily evaluated, streamable style, along the lines of .NET LINQ methods, Java 8 Streams, that kind of thing.
 
 
-# Trivial Examples
+## Trivial Examples
 
-`
+```javascript
 const from = require('mango').from;
 const array_or_other_iterable = fn();
 
@@ -16,4 +16,4 @@ const array_or_other_iterable = fn();
 for (const v in from(array_or_other_iterable).where(n => n > 100))
     do_something(v);
 
-`
+```
