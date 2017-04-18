@@ -19,14 +19,14 @@ for (const v in from(array_or_other_iterable).where(n => n > 100))
 ```
 
 ## Methods
-`Range.from(o)` creates a new Range from an array-like or other iterable object (similar to `Array.from()`)
-`Range.of(...items)` creates a new Range with a variable number of arguments (similar to `Array.of`)
+* `Range.from(o)` creates a new Range from an array-like or other iterable object (similar to `Array.from()`)
+* `Range.of(...items)` creates a new Range with a variable number of arguments (similar to `Array.of`)
 
 The returned range is an iterable object, and so can be used in all the places where Javascript accepts an iterable - eg for/of loop, etc
 
-`Range.prototype.where(predicate)` filters the returned sequence so only those elements that pass the test that `predicate` implements.
-`Range.prototype.take(count)` returns only the first `count` items in the sequence
-`Range.prototype.drop(count)` discards the first `count` items of the sequence, and returns the remainder
-`Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
+* `Range.prototype.where(predicate)` filters the returned sequence so only those elements that pass the test that `predicate` implements.
+* `Range.prototype.take(count)` returns only the first `count` items in the sequence
+* `Range.prototype.drop(count)` discards the first `count` items of the sequence, and returns the remainder
+* `Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
 
 Each method returns a new Range which can be iterated on, or modified with further chained operations.
