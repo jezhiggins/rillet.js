@@ -26,9 +26,10 @@ function* drop(iterable, count) {
 } // drop
 
 function* concat(...items) {
-    for (const item of items)
+    for (let item of items) {
 	for (const a of MangoRange.from(item))
 	    yield a;
+    }
 } // concat
 
 class MangoRange {
@@ -66,34 +67,3 @@ class MangoRange {
 } // class MangoRange
 
 module.exports = MangoRange;
-
-//////////////////////
-const array = [1, 2, 3, 4, 5, 6, 7];
-
-function dump(iterable, msg) {
-    console.log("============");
-    console.log(msg);
-
-    let first = true;
-    for(const a of iterable) {
-	if (!first)
-	    process.stdout.write(", ");
-	process.stdout.write(a.toString());
-	first = false;
-    }
-    process.stdout.write("\n");
-}
-
-
-dump(MangoRange.from(array).take(3), "take 3");
-dump(MangoRange.from(array).take(13), "take 13");
-
-dump(MangoRange.from(array).drop(3), "drop 3");
-dump(MangoRange.from(array).drop(13), "drop 13");
-
-dump(MangoRange.from(array).take(5).drop(3), "take 5 drop 3");
-
-dump(MangoRange.from(array).concat(array), "concat(array)");
-dump(MangoRange.from(array).concat(1, 2, 3), "concat(1, 2, 3)");
-dump(MangoRange.from(array).concat([4,5,6]), "concat([4, 5, 6])");
-dump(MangoRange.from(array).concat('a','b','c',[4,5,6],'d','e','f','grout'), "concat'a','b','c',[4, 5, 6],'d','e','f', 'grout')");
