@@ -33,6 +33,14 @@ function* concat(...items) {
 } // concat
 
 class MangoRange {
+    static of(...params) {
+	if (params.length == 0)
+	    return new MangoRange([]);
+	if (params.length == 1) {
+	    return new MangoRange(params);
+	} // if ...
+	return MangoRange.from(params);
+    } // MangoRange
     static from(iterable) {
 	if (iterable == null)
 	    return new MangoRange([]);
