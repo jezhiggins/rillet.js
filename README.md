@@ -10,6 +10,7 @@ Mango.js uses ES6 iterators to build these same methods in a lazily evaluated, s
 
 ```javascript
 const from = require('mango').from;
+
 const array_or_other_iterable = fn();
 
 // find large values
