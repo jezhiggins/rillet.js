@@ -39,6 +39,11 @@ function* concat(...items) {
     } /// for ...
 } // concat
 
+function* map(iterable, fn) {
+    for (const a of iterable)
+	yield fn(a);
+} // map
+
 class MangoRange {
     static of(...params) {
 	if (params.length == 0)
@@ -77,6 +82,7 @@ class MangoRange {
     take(count) { return new MangoRange(take(this.iterable, count)); }
     drop(count) { return new MangoRange(drop(this.iterable, count)); }
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
+    map(fn) { return new MangoRange(map(this.iterable, fn)); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

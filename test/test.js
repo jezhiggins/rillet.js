@@ -86,4 +86,7 @@ describe("MangoRange", () => {
 	t("concat('a','b','c',[4,5,6], 'def')", from(array).concat('a','b','c',[4,5,6], 'def'), array.concat('a','b','c',[4,5,6], 'def'));
     });
 
+    describe("map", () => {
+	t("map(toString)", from(array).map(i => i.toString()), array.map(i => i.toString()));
+    });
 });
