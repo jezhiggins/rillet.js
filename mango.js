@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 "use strict";
 
-function* where(iterable, predicate) {
+function* filter(iterable, predicate) {
     for (const a of iterable) {
 	if (predicate(a))
 	    yield a;
     }
-} // where
+} // filter
 
 function* take(iterable, count) {
     for (const a of iterable) {
@@ -73,7 +73,7 @@ class MangoRange {
 	    yield a;
     }
 
-    where(predicate) { return new MangoRange(where(this.iterable, predicate)); }
+    filter(predicate) { return new MangoRange(filter(this.iterable, predicate)); }
     take(count) { return new MangoRange(take(this.iterable, count)); }
     drop(count) { return new MangoRange(drop(this.iterable, count)); }
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }

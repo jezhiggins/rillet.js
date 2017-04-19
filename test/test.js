@@ -47,12 +47,12 @@ describe("MangoRange", () => {
 	t("undefined", of(undefined), Array.of(undefined));
     });
 
-    describe("where", () => {
-	t("where(true)", from(array).where(() => true), [1,2,3,4,5,6,7,8])
-	t("where(false)", from(array).where(() => false), []);
-	t("where(n > 3)", from(array).where(n => n > 3), [4,5,6,7,8]);
-	t("where(n < 6)", from(array).where(n => n < 6), [1,2,3,4,5]);
-	t("where(n > 2).where(n < 6)", from(array).where(n => n > 2).where(n => n < 6), [3,4,5]);
+    describe("filter", () => {
+	t("filter(true)", from(array).filter(() => true), [1,2,3,4,5,6,7,8])
+	t("filter(false)", from(array).filter(() => false), []);
+	t("filter(n > 3)", from(array).filter(n => n > 3), [4,5,6,7,8]);
+	t("filter(n < 6)", from(array).filter(n => n < 6), [1,2,3,4,5]);
+	t("filter(n > 2).filter(n < 6)", from(array).filter(n => n > 2).filter(n => n < 6), [3,4,5]);
     });
 
     describe("take", () => {
