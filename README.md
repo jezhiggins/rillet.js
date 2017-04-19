@@ -36,4 +36,4 @@ The returned range is an iterable object, and so can be used in all the places w
 Each method returns a new Range which can be iterated on, or modified with further chained operations.
 
 ### Terminal methods
-* `Range.prototype.forEach(fn) applies `fn` to each item in the sequence
+* `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence
