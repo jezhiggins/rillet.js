@@ -83,6 +83,7 @@ class MangoRange {
     drop(count) { return new MangoRange(drop(this.iterable, count)); }
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
     map(fn) { return new MangoRange(map(this.iterable, fn)); }
+    forEach(fn) { for (const a of this.iterable) fn(a); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

@@ -4,7 +4,9 @@ const of = MangoRange.of;
 const assert = require("assert");
 
 function t(msg, src, expected) {
-    it(msg, () => assert.deepStrictEqual(src.toArray(), expected));
+    const result = src.toArray ? src.toArray() : src;
+
+    it(msg, () => assert.deepStrictEqual(result, expected));
 } // compare
 
 const array = [1,2,3,4,5,6,7,8];
@@ -88,5 +90,15 @@ describe("MangoRange", () => {
 
     describe("map", () => {
 	t("map(toString)", from(array).map(i => i.toString()), array.map(i => i.toString()));
+    });
+
+    describe("forEach", () => {
+	let m = "";
+	let a = "";
+
+	from(array).forEach(i => m += (i + ","));
+	array.forEach(i => a += (i + ","));
+
+	t("forEach", m, a);
     });
 });
