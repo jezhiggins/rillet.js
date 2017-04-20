@@ -21,18 +21,15 @@ function* drop(iterable, count) {
     const iter = iterable[Symbol.iterator]();
     for (let i = 0; i != count; ++i)
 	iter.next();
-    for (const a of iter)
-	yield a;
+    yield* iter;
 } // drop
 
 function* concat(...items) {
     for (const item of items) {
 	for (const a of MangoRange.from(item)) {
 	    // embedded iterable - flatten
-	    if (a[Symbol.iterator] && typeof a != "string") {
-		for (const b of concat(...a))
-		    yield b;
-	    }
+	    if (a[Symbol.iterator] && typeof a != "string") 
+		yield* concat(...a)
 	    else
 		yield a;
 	} // for ...
@@ -73,8 +70,7 @@ class MangoRange {
     } // constructor
 
     *[Symbol.iterator]() {
-	for (const a of this.iterable)
-	    yield a;
+        yield* this.iterable;	
     }
 
     filter(predicate) { return new MangoRange(filter(this.iterable, predicate)); }
