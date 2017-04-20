@@ -101,4 +101,11 @@ describe("MangoRange", () => {
 
 	t("forEach", m, a);
     });
+
+    describe("first", () => {
+	const isEven = function(n) { return n%2==0; }
+
+	t("first", from(array).first(), array[0]);
+	t("filter(filter).first", from(array).filter(isEven).first(), array.filter(isEven)[0]);
+    });
 });

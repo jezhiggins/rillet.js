@@ -84,8 +84,20 @@ class MangoRange {
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
     map(fn) { return new MangoRange(map(this.iterable, fn)); }
     forEach(fn) { for (const a of this.iterable) fn(a); }
+    first() {
+	const {done, value} = this.iterable[Symbol.iterator]().next();
+	if (done)
+	    throw "Sequence is exhausted";
+	return value;
+    } // first
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange
+
+
+function* infinite() {
+  for (let a = 0; ; ++a)
+    yield a;
+}
 
 module.exports = MangoRange;
