@@ -72,7 +72,6 @@ class MangoRange {
 	this.iterable = iterable;
     } // constructor
 
-
     *[Symbol.iterator]() {
 	for (const a of this.iterable)
 	    yield a;
@@ -93,6 +92,5 @@ class MangoRange {
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange
-
 
 module.exports = MangoRange;
