@@ -11,6 +11,8 @@ function t(msg, src, expected) {
 
 const array = [1,2,3,4,5,6,7,8];
 
+const isEven = function(n) { return n%2==0; }
+
 describe("MangoRange", () => {
     describe("from", () => {
 	// should behave in a similar way to Array.from, except single objects are convert as
@@ -103,9 +105,22 @@ describe("MangoRange", () => {
     });
 
     describe("first", () => {
-	const isEven = function(n) { return n%2==0; }
-
 	t("first", from(array).first(), array[0]);
 	t("filter(filter).first", from(array).filter(isEven).first(), array.filter(isEven)[0]);
+
+	let msg = "[didn't throw]";
+	try {
+	    from(array).filter(() => false).first();
+	} catch (err) {
+	    msg = err;
+	} // catch
+        t("filter(false).first", msg, "Sequence is exhausted");
     });
+
+    describe("firstOrDefault", () => {
+	t("firstOrDefault", from(array).firstOrDefault("DEFAULT"), array[0]);
+	t("filter(filter).firstOrDefault", from(array).filter(isEven).firstOrDefault("DEFAULT"), array.filter(isEven)[0]);
+	t("filter(false).firstOrDefault", from(array).filter(() => false).firstOrDefault("DEFAULT"), "DEFAULT");
+    });
+
 });
