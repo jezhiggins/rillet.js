@@ -28,7 +28,7 @@ function* concat(...items) {
     for (const item of items) {
 	for (const a of MangoRange.from(item)) {
 	    // embedded iterable - flatten
-	    if (a[Symbol.iterator] && typeof a != "string") 
+	    if (a[Symbol.iterator] && typeof a != "string")
 		yield* concat(...a)
 	    else
 		yield a;
@@ -47,6 +47,19 @@ function first(iterable, fn) {
 	return fn();
     return value;
 } // first
+
+function last(iterable, fn) {
+    const iter = iterable[Symbol.iterator]();
+    let {done, value} = iter.next();
+    if (done)
+	return fn();
+    while(true) {
+	let {done, value: nextvalue} = iter.next();
+	if (done)
+	    return value;
+	value = nextvalue;
+    } // while
+} // last
 
 class MangoRange {
     static of(...params) {
@@ -77,7 +90,7 @@ class MangoRange {
     } // constructor
 
     *[Symbol.iterator]() {
-        yield* this.iterable;	
+        yield* this.iterable;
     }
 
     filter(predicate) { return new MangoRange(filter(this.iterable, predicate)); }
@@ -88,6 +101,8 @@ class MangoRange {
     forEach(fn) { for (const a of this.iterable) fn(a); }
     first() { return first(this.iterable, () => { throw "Sequence is exhausted"; }); }
     firstOrDefault(defaultValue) { return first(this.iterable, () => { return defaultValue; }); }
+    last() { return last(this.iterable, () => { throw "Sequence is exhausted"; }); }
+    lastOrDefault(defaultValue) { return last(this.iterable, () => { return defaultValue; }); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

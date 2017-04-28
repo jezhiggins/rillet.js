@@ -106,7 +106,7 @@ describe("MangoRange", () => {
 
     describe("first", () => {
 	t("first", from(array).first(), array[0]);
-	t("filter(filter).first", from(array).filter(isEven).first(), array.filter(isEven)[0]);
+	t("filter(isEven).first", from(array).filter(isEven).first(), array.filter(isEven)[0]);
 
 	let msg = "[didn't throw]";
 	try {
@@ -121,6 +121,27 @@ describe("MangoRange", () => {
 	t("firstOrDefault", from(array).firstOrDefault("DEFAULT"), array[0]);
 	t("filter(filter).firstOrDefault", from(array).filter(isEven).firstOrDefault("DEFAULT"), array.filter(isEven)[0]);
 	t("filter(false).firstOrDefault", from(array).filter(() => false).firstOrDefault("DEFAULT"), "DEFAULT");
+    });
+
+    describe("last", () => {
+	t("last", from(array).last(), array[array.length-1]);
+	const filtered_array = array.filter(isEven);
+	t("filter(isEven).last", from(array).filter(isEven).last(), filtered_array[filtered_array.length-1]);
+
+	let msg = "[didn't throw]";
+	try {
+	    from(array).filter(() => false).last();
+	} catch (err) {
+	    msg = err;
+	} // catch
+        t("filter(false).last", msg, "Sequence is exhausted");
+    });
+
+    describe("lastOrDefault", () => {
+	t("lastOrDefault", from(array).lastOrDefault("DEFAULT"), array[array.length-1]);
+	const filtered_array = array.filter(isEven);
+	t("filter(isEven).lastOrDefault", from(array).filter(isEven).lastOrDefault("DEFAULT"), filtered_array[filtered_array.length-1]);
+        t("filter(false).last", from(array).filter(() => false).lastOrDefault("DEFAULT"), "DEFAULT");
     });
 
 });
