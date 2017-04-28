@@ -100,9 +100,9 @@ class MangoRange {
     map(fn) { return new MangoRange(map(this.iterable, fn)); }
     forEach(fn) { for (const a of this.iterable) fn(a); }
     first() { return first(this.iterable, () => { throw "Sequence is exhausted"; }); }
-    firstOrDefault(defaultValue) { return first(this.iterable, () => { return defaultValue; }); }
+    firstOrDefault(defaultValue) { return first(this.iterable, () => defaultValue); }
     last() { return last(this.iterable, () => { throw "Sequence is exhausted"; }); }
-    lastOrDefault(defaultValue) { return last(this.iterable, () => { return defaultValue; }); }
+    lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange
