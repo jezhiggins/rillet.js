@@ -141,7 +141,7 @@ describe("MangoRange", () => {
 	t("lastOrDefault", from(array).lastOrDefault("DEFAULT"), array[array.length-1]);
 	const filtered_array = array.filter(isEven);
 	t("filter(isEven).lastOrDefault", from(array).filter(isEven).lastOrDefault("DEFAULT"), filtered_array[filtered_array.length-1]);
-        t("filter(false).last", from(array).filter(() => false).lastOrDefault("DEFAULT"), "DEFAULT");
+        t("filter(false).lastOrDefault", from(array).filter(() => false).lastOrDefault("DEFAULT"), "DEFAULT");
     });
 
 });
