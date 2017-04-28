@@ -41,6 +41,13 @@ function* map(iterable, fn) {
 	yield fn(a);
 } // map
 
+function first(iterable, fn) {
+    const {done, value} = iterable[Symbol.iterator]().next();
+    if (done)
+	return fn();
+    return value;
+} // first
+
 class MangoRange {
     static of(...params) {
 	if (params.length == 0)
@@ -79,12 +86,8 @@ class MangoRange {
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
     map(fn) { return new MangoRange(map(this.iterable, fn)); }
     forEach(fn) { for (const a of this.iterable) fn(a); }
-    first() {
-	const {done, value} = this.iterable[Symbol.iterator]().next();
-	if (done)
-	    throw "Sequence is exhausted";
-	return value;
-    } // first
+    first() { return first(this.iterable, () => { throw "Sequence is exhausted"; }); }
+    firstOrDefault(defaultValue) { return first(this.iterable, () => { return defaultValue; }); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

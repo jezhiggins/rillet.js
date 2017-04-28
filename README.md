@@ -37,3 +37,5 @@ Each method returns a new Range which can be iterated on, or modified with furth
 
 ### Terminal methods
 * `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence
+* `Range.prototype.first()` return the first value in the sequence, or throws if the sequence is empty
+* `Range.prototype.firstOrDefault(defaultValue)` return the first value in the sequence, or the defaultValue if the sequence is empty
