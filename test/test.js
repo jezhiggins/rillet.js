@@ -144,4 +144,11 @@ describe("MangoRange", () => {
         t("filter(false).lastOrDefault", from(array).filter(() => false).lastOrDefault("DEFAULT"), "DEFAULT");
     });
 
+    describe("flatten", () => {
+	t("flatten([1,2,3,4])", from([1,2,3,4]).flatten(), [1,2,3,4]);
+	t("flatten([[1, 2], [3, 4]])", from([[1, 2], [3, 4]]).flatten(), [1,2,3,4]);
+	t("flatten([[[[1],2],3],4])", from([[[[1],2],3],4]).flatten(), [1,2,3,4]);
+	t("flatten([1,[2,[3,[4]]]])", from([1,[2,[3,[4]]]]).flatten(), [1,2,3,4]);
+    });
+
 });
