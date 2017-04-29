@@ -38,7 +38,8 @@ Each method returns a new Range which can be iterated on, or modified with furth
 
 ### Terminal methods
 * `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence
-* `Range.prototype.first()` return the first value in the sequence, or throws if the sequence is empty
-* `Range.prototype.firstOrDefault(defaultValue)` return the first value in the sequence, or the defaultValue if the sequence is empty
-* `Range.prototype.last()` return the last value in the sequence, or throws if the sequence is empty.  Will never return if the sequence is unbounded.
-* `Range.prototype.lastOrDefault(defaultValue)` return the last value in the sequence, or the defaultValue if the sequence is empty.  Will never return if the sequence is unbounded.
+* `Range.prototype.first()` returns the first value in the sequence, or throws if the sequence is empty
+* `Range.prototype.firstOrDefault(defaultValue)` returns the first value in the sequence, or the defaultValue if the sequence is empty
+* `Range.prototype.last()` returns the last value in the sequence, or throws if the sequence is empty.  Will never return if the sequence is unbounded.
+* `Range.prototype.lastOrDefault(defaultValue)` returns the last value in the sequence, or the defaultValue if the sequence is empty.  Will never return if the sequence is unbounded.
+* `Range.prototype.reduce(fn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw.

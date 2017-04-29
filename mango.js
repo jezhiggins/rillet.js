@@ -67,6 +67,23 @@ function last(iterable, fn) {
     } // while
 } // last
 
+function reduce(iterable, fn, seed) {
+    if (seed === undefined)
+	[seed, iterable] = advance(iterable);
+    let total = seed;
+    for (const v of iterable)
+	total = fn(total, v);
+    return total;
+} // reduce
+
+function advance(iterable) {
+    const iterator = iterable[Symbol.iterator]();
+    const head = iterator.next();
+    if (head.done)
+	throw "Sequence is exhausted";
+    return [head.value, new MangoRange(iterator)];
+} // advance
+
 class MangoRange {
     static of(...params) {
 	if (params.length == 0)
@@ -111,6 +128,7 @@ class MangoRange {
     firstOrDefault(defaultValue) { return first(this.iterable, () => defaultValue); }
     last() { return last(this.iterable, () => { throw "Sequence is exhausted"; }); }
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
+    reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

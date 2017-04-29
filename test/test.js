@@ -151,4 +151,10 @@ describe("MangoRange", () => {
 	t("flatten([1,[2,[3,[4]]]])", from([1,[2,[3,[4]]]]).flatten(), [1,2,3,4]);
     });
 
+    describe("reduce", () => {
+	t("reduce(array, 0)", from(array).reduce((x, y) => x + y, 0), array.reduce((x, y) => x + y, 0));
+	t("reduce(array, 99)", from(array).reduce((x, y) => x + y, 99), array.reduce((x, y) => x + y, 99));
+	t("reduce(array)", from(array).reduce((x, y) => x + y), array.reduce((x, y) => x + y));
+    });
+
 });
