@@ -9,6 +9,16 @@ function t(msg, src, expected) {
     it(msg, () => assert.deepStrictEqual(result, expected));
 } // compare
 
+function exhausted(label, fn) {
+    let msg = "[didn't throw]";
+    try {
+	fn();
+    } catch (err) {
+	msg = err;
+    }
+    t(label, msg, "Sequence is exhausted");
+} // exhausted
+
 const array = [1,2,3,4,5,6,7,8];
 
 const isEven = function(n) { return n%2==0; }
@@ -108,13 +118,8 @@ describe("MangoRange", () => {
 	t("first", from(array).first(), array[0]);
 	t("filter(isEven).first", from(array).filter(isEven).first(), array.filter(isEven)[0]);
 
-	let msg = "[didn't throw]";
-	try {
-	    from(array).filter(() => false).first();
-	} catch (err) {
-	    msg = err;
-	} // catch
-        t("filter(false).first", msg, "Sequence is exhausted");
+	exhausted("filter(false).first", () =>
+		  from(array).filter(() => false).first())
     });
 
     describe("firstOrDefault", () => {
@@ -128,13 +133,8 @@ describe("MangoRange", () => {
 	const filtered_array = array.filter(isEven);
 	t("filter(isEven).last", from(array).filter(isEven).last(), filtered_array[filtered_array.length-1]);
 
-	let msg = "[didn't throw]";
-	try {
-	    from(array).filter(() => false).last();
-	} catch (err) {
-	    msg = err;
-	} // catch
-        t("filter(false).last", msg, "Sequence is exhausted");
+	exhausted("filter(false).last", () =>
+		  from(array).filter(() => false).last());
     });
 
     describe("lastOrDefault", () => {
@@ -155,6 +155,9 @@ describe("MangoRange", () => {
 	t("reduce(array, 0)", from(array).reduce((x, y) => x + y, 0), array.reduce((x, y) => x + y, 0));
 	t("reduce(array, 99)", from(array).reduce((x, y) => x + y, 99), array.reduce((x, y) => x + y, 99));
 	t("reduce(array)", from(array).reduce((x, y) => x + y), array.reduce((x, y) => x + y));
+	t("reduce([], 56)", from([]).reduce((x, y) => x + y, 56), [].reduce((x, y) => x + y, 56));
+	exhausted("reduce([])", () =>
+		  from([]).reduce((x, y) => x + y));
     });
 
 });
