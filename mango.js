@@ -80,9 +80,13 @@ function advance(iterable) {
     const iterator = iterable[Symbol.iterator]();
     const head = iterator.next();
     if (head.done)
-	throw "Sequence is exhausted";
+	exhausted();
     return [head.value, new MangoRange(iterator)];
 } // advance
+
+function exhausted() {
+    throw "Sequence is exhausted";
+} // exhausted
 
 class MangoRange {
     static of(...params) {
@@ -124,9 +128,9 @@ class MangoRange {
     flatten() { return new MangoRange(flatten(this.iterable)); }
 
     forEach(fn) { for (const a of this.iterable) fn(a); }
-    first() { return first(this.iterable, () => { throw "Sequence is exhausted"; }); }
+    first() { return first(this.iterable, exhausted); }
     firstOrDefault(defaultValue) { return first(this.iterable, () => defaultValue); }
-    last() { return last(this.iterable, () => { throw "Sequence is exhausted"; }); }
+    last() { return last(this.iterable, exhausted); }
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
 
