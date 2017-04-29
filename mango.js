@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-"use strict";
 
 function* filter(iterable, predicate) {
-    for (const a of iterable) {
+    for (const a of iterable)
 	if (predicate(a))
 	    yield a;
-    }
 } // filter
+
+function* map(iterable, fn) {
+    for (const a of iterable)
+	yield fn(a);
+} // map
 
 function* take(iterable, count) {
     for (const a of iterable) {
@@ -35,11 +38,6 @@ function* concat(...items) {
 	} // for ...
     } /// for ...
 } // concat
-
-function* map(iterable, fn) {
-    for (const a of iterable)
-	yield fn(a);
-} // map
 
 function first(iterable, fn) {
     const {done, value} = iterable[Symbol.iterator]().next();
@@ -94,10 +92,11 @@ class MangoRange {
     }
 
     filter(predicate) { return new MangoRange(filter(this.iterable, predicate)); }
+    map(fn) { return new MangoRange(map(this.iterable, fn)); }
     take(count) { return new MangoRange(take(this.iterable, count)); }
     drop(count) { return new MangoRange(drop(this.iterable, count)); }
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
-    map(fn) { return new MangoRange(map(this.iterable, fn)); }
+
     forEach(fn) { for (const a of this.iterable) fn(a); }
     first() { return first(this.iterable, () => { throw "Sequence is exhausted"; }); }
     firstOrDefault(defaultValue) { return first(this.iterable, () => defaultValue); }
