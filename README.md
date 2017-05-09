@@ -27,6 +27,8 @@ for (const v in from(array_or_other_iterable).where(n => n > 100))
 The returned range is an iterable object, and so can be used in all the places where Javascript accepts an iterable - eg for/of loop, etc
 
 ### Modifiers
+Each modifier method returns a new Range which can be iterated on, or modified with further chained operations.
+
 * `Range.prototype.filter(predicate)` filters the returned sequence so only those elements that pass the test that `predicate` implements.
 * `Range.prototype.map(fn)` returns the result of applying `fn` to each item in the sequence
 * `Range.prototype.take(count)` returns only the first `count` items in the sequence
@@ -34,10 +36,12 @@ The returned range is an iterable object, and so can be used in all the places w
 * `Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
 * `Range.prototype.flatten()` flattens any iterables in the sequence, creating a new stream which is entirely flat
 
-Each method returns a new Range which can be iterated on, or modified with further chained operations.
 
 ### Terminal methods
+A terminal method drains the pipeline producing some, possible a null, result.
+
 * `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence
+* `Range.prototype.count` returns the count of items in the sequence
 * `Range.prototype.first()` returns the first value in the sequence, or throws if the sequence is empty
 * `Range.prototype.firstOrDefault(defaultValue)` returns the first value in the sequence, or the defaultValue if the sequence is empty
 * `Range.prototype.last()` returns the last value in the sequence, or throws if the sequence is empty.  Will never return if the sequence is unbounded.

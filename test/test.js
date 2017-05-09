@@ -160,4 +160,9 @@ describe("MangoRange", () => {
 		  from([]).reduce((x, y) => x + y));
     });
 
+    describe("count", () => {
+	t("count", from(array).count(), array.length);
+	t("take(4).count", from(array).take(4).count(), 4);
+	t("drop(4).count", from(array).drop(4).count(), array.length-4);
+    });
 });

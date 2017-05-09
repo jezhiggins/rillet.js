@@ -127,6 +127,7 @@ class MangoRange {
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
     flatten() { return new MangoRange(flatten(this.iterable)); }
 
+    count() { let count = 0; for (const a of this.iterable) ++count; return count; }
     forEach(fn) { for (const a of this.iterable) fn(a); }
     first() { return first(this.iterable, exhausted); }
     firstOrDefault(defaultValue) { return first(this.iterable, () => defaultValue); }
