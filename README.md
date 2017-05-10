@@ -1,4 +1,4 @@
-# mango.js
+# rillet.js
 Lazily evaluated ranges/streams/fp library built around ES6 generators
 
 The Javascript Array methods provide a number of methods that we typically associate with functional languages - filter/concat/forEach/etc.  However, they're generally eagerly and exhaustively evaluated.
