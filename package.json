@@ -1,6 +1,6 @@
 {
   "name": "rillet.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A FP/Java streams/.NET LINQ/C++ Range library, based around ES6 iterators.",
   "main": "rillet.js",
   "scripts": {
