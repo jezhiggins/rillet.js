@@ -1,6 +1,6 @@
-const MangoRange = require("../mango.js");
-const from = MangoRange.from;
-const of = MangoRange.of;
+const RilletRange = require("../rillet.js");
+const from = RilletRange.from;
+const of = RilletRange.of;
 const assert = require("assert");
 
 function t(msg, src, expected) {
@@ -23,14 +23,14 @@ const array = [1,2,3,4,5,6,7,8];
 
 const isEven = function(n) { return n%2==0; }
 
-describe("MangoRange", () => {
+describe("RilletRange", () => {
     describe("from", () => {
 	// should behave in a similar way to Array.from, except single objects are convert as
 	// if they were an array of length one, rather than to the empty range
 	t("array", from([1,2,3]), Array.from([1,2,3]));
 	t("string array", from(["pig", "dog"]), Array.from(["pig", "dog"]));
-	t("string", from("mango"), Array.from("mango"));
-	t("string", from("mango"), ["m", "a", "n", "g", "o"]);
+	t("string", from("rillet"), Array.from("rillet"));
+	t("string", from("rillet"), ["r", "i", "l", "l", "e", "t"]);
 	t("nested array", from([1,2,3,['a','b','c',[7,8,9]]]), Array.from([1,2,3,['a','b','c',[7,8,9]]]));
 	t("int", from(1), [1]);
 	t("float", from(1.234), [1.234]);
@@ -49,7 +49,7 @@ describe("MangoRange", () => {
 	t("params", of(1,2,3), Array.of(1,2,3));
 	t("string array", of(["pig", "dog"]), Array.of(["pig", "dog"]));
 	t("strings", of("pig", "dog"), Array.of("pig", "dog"));
-	t("string", of("mango"), Array.of("mango"));
+	t("string", of("rillet"), Array.of("rillet"));
 	t("nested array", of([1,2,3,['a','b','c',[7,8,9]]]), Array.of([1,2,3,['a','b','c',[7,8,9]]]));
 	t("...nested array", of(1,2,3,['a','b','c',[7,8,9]]), Array.of(1,2,3,['a','b','c',[7,8,9]]));
 	t("int", of(1), Array.of(1));

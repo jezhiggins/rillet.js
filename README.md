@@ -13,10 +13,7 @@ const from = require('mango').from;
 
 const array_or_other_iterable = fn();
 
-// find large values
-for (const v in from(array_or_other_iterable).where(n => n > 100))
-    do_something(v);
-
+from(array_or_other_iterable).where(n => n > 100).forEach(x => console.log(x));
 ```
 
 ## Methods

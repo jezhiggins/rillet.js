@@ -1,21 +1,21 @@
 {
-  "name": "mango.js",
+  "name": "rillet.js",
   "version": "1.0.0",
   "description": "A FP/Java streams/.NET LINQ/C++ Range library, based around ES6 iterators.",
-  "main": "mango.js",
+  "main": "rillet.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jezhiggins/mango.js.git"
+    "url": "git+https://github.com/jezhiggins/rillet.js.git"
   },
   "author": "Jez Higgins, Jez UK Ltd",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jezhiggins/mango.js/issues"
+    "url": "https://github.com/jezhiggins/rillet.js/issues"
   },
-  "homepage": "https://github.com/jezhiggins/mango.js#readme",
+  "homepage": "https://github.com/jezhiggins/rillet.js#readme",
   "dependencies": {
     "mocha": "^3.2.0"
   }
