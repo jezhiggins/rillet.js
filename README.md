@@ -9,7 +9,7 @@ Mango.js uses ES6 iterators to build these same methods in a lazily evaluated, s
 ## Trivial Example
 
 ```javascript
-const from = require('mango').from;
+const from = require('rillet').from;
 
 const array_or_other_iterable = fn();
 
