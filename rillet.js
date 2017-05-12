@@ -85,22 +85,23 @@ function advance(iterable) {
 } // advance
 
 function none(iterable, predicate) {
-    return every(iterable, i => !predicate(i));
+    return test(iterable, predicate, false, true);
 } // none
 
 function every(iterable, predicate) {
-    for (const item of iterable)
-	if (!predicate(item))
-	    return false;
-    return true;
+    return none(iterable, i => !predicate(i));
 } // every
 
 function some(iterable, predicate) {
+    return test(iterable, predicate, true, false);
+} // some
+
+function test(iterable, predicate, early, all) {
     for (const item of iterable)
 	if (predicate(item))
-	    return true;
-    return false;
-} // some
+	    return early;
+    return all;
+} // test
 
 function exhausted() {
     throw "Sequence is exhausted";
