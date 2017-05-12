@@ -46,3 +46,4 @@ A terminal method drains the pipeline producing some, possible a null, result.
 * `Range.prototype.reduce(fn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw.
 * `Range.prototype.none(predicate)` returns true if none of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.every(predicate)` returns true if all of the items in the sequence match the predicate, and false otherwise
+* `Range.prototype.some(predicate)` returns true if one or more of the items in the sequence match the predicate, and false otherwise

@@ -95,6 +95,13 @@ function every(iterable, predicate) {
     return true;
 } // every
 
+function some(iterable, predicate) {
+    for (const item of iterable)
+	if (predicate(item))
+	    return true;
+    return false;
+} // some
+
 function exhausted() {
     throw "Sequence is exhausted";
 } // exhausted
@@ -149,6 +156,7 @@ class MangoRange {
 
     none(predicate) { return none(this.iterable, predicate); }
     every(predicate) { return every(this.iterable, predicate); }
+    some(predicate) { return some(this.iterable, predicate); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

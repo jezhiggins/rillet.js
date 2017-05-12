@@ -167,15 +167,15 @@ describe("RilletRange", () => {
     });
 
     describe("none", () => {
-	t("none(true)", from(array).none(() => true), false);
-	t("none(<5)", from(array).none(n => n < 5), false);
-	t("none(>5)", from(array).none(n => n > 5), false);
-	t("none(==1)", from(array).none(n => n == array[0]), false);
-	t("none(==8)", from(array).none(n => n == array[array.length-1]), false);
+	t("none(true)", from(array).none(() => true), array.find(() => true) === undefined);
+	t("none(<5)", from(array).none(n => n < 5), array.find(n => n < 5) === undefined);
+	t("none(>5)", from(array).none(n => n > 5), array.find(n => n > 5) === undefined);
+	t("none(==1)", from(array).none(n => n == array[0]), array.find(n => n == array[0]) === undefined);
+	t("none(==8)", from(array).none(n => n == array[array.length-1]), array.find(n => n == array[array.length-1]) === undefined);
 
-	t("none(false)", from(array).none(() => false), true);
-	t("none(<0)", from(array).none(n => n < 0), true);
-	t("none(>10)", from(array).none(n => n > 10), true);
+	t("none(false)", from(array).none(() => false), array.find(() => false) === undefined);
+	t("none(<0)", from(array).none(n => n < 0), array.find(n => n < 0) === undefined);
+	t("none(>10)", from(array).none(n => n > 10), array.find(n => n > 10) === undefined);
     });
 
     describe("every", () => {
@@ -183,10 +183,22 @@ describe("RilletRange", () => {
 	t("every(<5)", from(array).every(n => n < 5), array.every(n => n < 5));
 	t("every(>5)", from(array).every(n => n > 5), array.every(n => n > 5));
 	t("every(==1)", from(array).every(n => n == array[0]), array.every(n => n == array[0]));
-	t("every(==8)", from(array).every(n => n == array[array.length-1]), array.every(n => n == array[array.length=1]));
+	t("every(==8)", from(array).every(n => n == array[array.length-1]), array.every(n => n == array[array.length-1]));
 
 	t("every(false)", from(array).every(() => false), array.every(() => false));
 	t("every(<0)", from(array).every(n => n < 0), array.every(n => n < 0));
 	t("every(>10)", from(array).every(n => n > 10), array.every(n => n > 10));
+    });
+
+    describe("some", () => {
+	t("some(true)", from(array).some(() => true), array.some(() => true));
+	t("some(<5)", from(array).some(n => n < 5), array.some(n => n < 5));
+	t("some(>5)", from(array).some(n => n > 5), array.some(n => n > 5));
+	t("some(==1)", from(array).some(n => n == array[0]), array.some(n => n == array[0]));
+	t("some(==8)", from(array).some(n => n == array[array.length-1]), array.some(n => n == array[array.length-1]));
+
+	t("some(false)", from(array).some(() => false), array.some(() => false));
+	t("some(<0)", from(array).some(n => n < 0), array.some(n => n < 0));
+	t("some(>10)", from(array).some(n => n > 10), array.some(n => n > 10));
     });
 });
