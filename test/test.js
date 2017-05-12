@@ -177,4 +177,16 @@ describe("RilletRange", () => {
 	t("none(<0)", from(array).none(n => n < 0), true);
 	t("none(>10)", from(array).none(n => n > 10), true);
     });
+
+    describe("every", () => {
+	t("every(true)", from(array).every(() => true), array.every(() => true));
+	t("every(<5)", from(array).every(n => n < 5), array.every(n => n < 5));
+	t("every(>5)", from(array).every(n => n > 5), array.every(n => n > 5));
+	t("every(==1)", from(array).every(n => n == array[0]), array.every(n => n == array[0]));
+	t("every(==8)", from(array).every(n => n == array[array.length-1]), array.every(n => n == array[array.length=1]));
+
+	t("every(false)", from(array).every(() => false), array.every(() => false));
+	t("every(<0)", from(array).every(n => n < 0), array.every(n => n < 0));
+	t("every(>10)", from(array).every(n => n > 10), array.every(n => n > 10));
+    });
 });

@@ -85,11 +85,15 @@ function advance(iterable) {
 } // advance
 
 function none(iterable, predicate) {
+    return every(iterable, i => !predicate(i));
+} // none
+
+function every(iterable, predicate) {
     for (const item of iterable)
-	if (predicate(item))
+	if (!predicate(item))
 	    return false;
     return true;
-} // none
+} // every
 
 function exhausted() {
     throw "Sequence is exhausted";
@@ -144,6 +148,7 @@ class MangoRange {
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
 
     none(predicate) { return none(this.iterable, predicate); }
+    every(predicate) { return every(this.iterable, predicate); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange
