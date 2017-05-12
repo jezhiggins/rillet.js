@@ -44,3 +44,4 @@ A terminal method drains the pipeline producing some, possible a null, result.
 * `Range.prototype.last()` returns the last value in the sequence, or throws if the sequence is empty.  Will never return if the sequence is unbounded.
 * `Range.prototype.lastOrDefault(defaultValue)` returns the last value in the sequence, or the defaultValue if the sequence is empty.  Will never return if the sequence is unbounded.
 * `Range.prototype.reduce(fn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw.
+* `Range.prototype.none(predicate)` returns true if none of the items in the sequence match the predicate, and false otherwise

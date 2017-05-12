@@ -84,10 +84,18 @@ function advance(iterable) {
     return [head.value, new MangoRange(iterator)];
 } // advance
 
+function none(iterable, predicate) {
+    for (const item of iterable)
+	if (predicate(item))
+	    return false;
+    return true;
+} // none
+
 function exhausted() {
     throw "Sequence is exhausted";
 } // exhausted
 
+////////////////////////////
 class MangoRange {
     static of(...params) {
 	if (params.length == 0)
@@ -134,6 +142,8 @@ class MangoRange {
     last() { return last(this.iterable, exhausted); }
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
+
+    none(predicate) { return none(this.iterable, predicate); }
 
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange

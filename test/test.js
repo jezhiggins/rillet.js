@@ -165,4 +165,16 @@ describe("RilletRange", () => {
 	t("take(4).count", from(array).take(4).count(), 4);
 	t("drop(4).count", from(array).drop(4).count(), array.length-4);
     });
+
+    describe("none", () => {
+	t("none(true)", from(array).none(() => true), false);
+	t("none(<5)", from(array).none(n => n < 5), false);
+	t("none(>5)", from(array).none(n => n > 5), false);
+	t("none(==1)", from(array).none(n => n == array[0]), false);
+	t("none(==8)", from(array).none(n => n == array[array.length-1]), false);
+
+	t("none(false)", from(array).none(() => false), true);
+	t("none(<0)", from(array).none(n => n < 0), true);
+	t("none(>10)", from(array).none(n => n > 10), true);
+    });
 });
