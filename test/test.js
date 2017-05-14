@@ -201,4 +201,13 @@ describe("RilletRange", () => {
 	t("some(<0)", from(array).some(n => n < 0), array.some(n => n < 0));
 	t("some(>10)", from(array).some(n => n > 10), array.some(n => n > 10));
     });
+
+    describe("join", () => {
+	t("join", from(array).join(), array.join());
+	t("join(' - ')", from(array).join(' - '), array.join(' - '));
+	t("[].join", from([]).join(), [].join());
+	t("['fruit']join", of('fruit').join(), ['fruit'].join());
+        t("['fruit','veg']join", of('fruit', 'veg').join(), ['fruit','veg'].join());
+    });
+
 });
