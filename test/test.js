@@ -176,6 +176,9 @@ describe("RilletRange", () => {
 	t("none(false)", from(array).none(() => false), array.find(() => false) === undefined);
 	t("none(<0)", from(array).none(n => n < 0), array.find(n => n < 0) === undefined);
 	t("none(>10)", from(array).none(n => n > 10), array.find(n => n > 10) === undefined);
+
+	t("[].none(false)", from([]).none(() => false), [].find(() => false) === undefined);
+	t("[].none(true)", from([]).none(() => true), [].find(() => true) === undefined);
     });
 
     describe("every", () => {
@@ -188,6 +191,9 @@ describe("RilletRange", () => {
 	t("every(false)", from(array).every(() => false), array.every(() => false));
 	t("every(<0)", from(array).every(n => n < 0), array.every(n => n < 0));
 	t("every(>10)", from(array).every(n => n > 10), array.every(n => n > 10));
+
+	t("[].every(false)", from([]).every(() => false), [].every(() => false));
+	t("[].every(true)", from([]).every(() => true), [].every(() => true));
     });
 
     describe("some", () => {
@@ -200,14 +206,17 @@ describe("RilletRange", () => {
 	t("some(false)", from(array).some(() => false), array.some(() => false));
 	t("some(<0)", from(array).some(n => n < 0), array.some(n => n < 0));
 	t("some(>10)", from(array).some(n => n > 10), array.some(n => n > 10));
+
+	t("[].some(false)", from([]).some(() => false), [].some(() => false));
+	t("[].some(true)", from([]).some(() => true), [].some(() => true));
     });
 
     describe("join", () => {
 	t("join", from(array).join(), array.join());
 	t("join(' - ')", from(array).join(' - '), array.join(' - '));
 	t("[].join", from([]).join(), [].join());
-	t("['fruit']join", of('fruit').join(), ['fruit'].join());
-        t("['fruit','veg']join", of('fruit', 'veg').join(), ['fruit','veg'].join());
+	t("['fruit'].join", of('fruit').join(), ['fruit'].join());
+        t("['fruit','veg'].join", of('fruit', 'veg').join(), ['fruit','veg'].join());
     });
 
 });
