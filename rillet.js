@@ -121,24 +121,6 @@ function join(iterable, separator = ',') {
     return s;
 } // join
 
-function max(iterable, comparator = (a,b) => a > b) {
-    const iterator = iterable[Symbol.iterator]();
-    let head = iterator.next();
-    if (head.done)
-	exhausted();
-
-    let m = head.value;
-
-    head = iterator.next();
-    while(!head.done) {
-	if (comparator(head.value, m))
-	    m = head.value;
-	head = iterator.next();
-    } // while
-
-    return m;
-} // max
-
 function exhausted() {
     throw "Sequence is exhausted";
 } // exhausted
@@ -190,7 +172,7 @@ class MangoRange {
     last() { return last(this.iterable, exhausted); }
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
-    max(comparator) { return max(this.iterable, comparator); }
+    max(comparator = (a,b) => a > b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b); }
     min(comparator = (a,b) => a < b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b); }
 
     none(predicate) { return none(this.iterable, predicate); }
