@@ -4,7 +4,7 @@ const of = RilletRange.of;
 const assert = require("assert");
 
 function t(msg, src, expected) {
-    const result = src.toArray ? src.toArray() : src;
+    const result = (src && src.toArray) ? src.toArray() : src;
 
     it(msg, () => assert.deepStrictEqual(result, expected));
 } // compare
@@ -226,7 +226,7 @@ describe("RilletRange", () => {
 	t("max(a,b => -a > -b)", from(array).max((a,b) => -a > -b), 1);
 	t("['a','c','b'].max()", from('acb').max(), 'c');
 	t("[5].max()", of(5).max(), 5);
-	exhausted("[].max()", () => from([]).max());
+	t("[].max()", from([]).max(), undefined);
     });
 
     describe("min", () => {
@@ -236,6 +236,6 @@ describe("RilletRange", () => {
 	t("min(a,b => -a < -b)", from(array).min((a,b) => -a < -b), 8);
 	t("['a','c','b'].min()", from('acb').min(), 'a');
 	t("[5].min()", of(5).min(), 5);
-	exhausted("[].min()", () => from([]).min());
+	t("[].min()", from([]).min(), undefined);
     });
 });

@@ -37,15 +37,16 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 ### Terminal methods
 A terminal method drains the pipeline producing some, possible a null, result.
 
+* `Range.prototype.reduce(fn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw
+
 * `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence
 * `Range.prototype.count` returns the count of items in the sequence
 * `Range.prototype.first()` returns the first value in the sequence, or throws if the sequence is empty
 * `Range.prototype.firstOrDefault(defaultValue)` returns the first value in the sequence, or the defaultValue if the sequence is empty
 * `Range.prototype.last()` returns the last value in the sequence, or throws if the sequence is empty.  Will never return if the sequence is unbounded.
-* `Range.prototype.lastOrDefault(defaultValue)` returns the last value in the sequence, or the defaultValue if the sequence is empty.  Will never return if the sequence is unbounded.
-* `Range.prototype.reduce(fn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw.
-* `Range.prototype.max([comparator])` finds the maximum item of the stream, according to the provided comparator.  If no comparator is provided, it defaults to `(item, currentmax) => item > currentmax`
-* `Range.prototype.min([comparator])` finds the minimum item of the stream, according to the provided comparator.  If no comparator is provided, it defaults to `(item, currentmax) => item < currentmax`
+* `Range.prototype.lastOrDefault(defaultValue)` returns the last value in the sequence, or the defaultValue if the sequence is empty.
+* `Range.prototype.max([comparator])` finds the maximum item of the stream, according to the provided comparator.  If no comparator is provided, it defaults to `(item, currentmax) => item > currentmax`. Returns undefined if the sequence is empty.
+* `Range.prototype.min([comparator])` finds the minimum item of the stream, according to the provided comparator.  If no comparator is provided, it defaults to `(item, currentmax) => item < currentmax`. Returns undefined if the sequence is empty.
 * `Range.prototype.none(predicate)` returns true if none of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.every(predicate)` returns true if all of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.some(predicate)` returns true if one or more of the items in the sequence match the predicate, and false otherwise

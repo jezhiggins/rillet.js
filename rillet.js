@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+class NillValue {
+    constructor() { }
+} // class NillValue
+
+const Nill = new NillValue();
+
 function* filter(iterable, predicate) {
     for (const a of iterable)
 	if (predicate(a))
@@ -68,19 +74,22 @@ function last(iterable, fn) {
 } // last
 
 function reduce(iterable, fn, seed) {
-    if (seed === undefined)
-	[seed, iterable] = advance(iterable);
+    if ((seed === undefined) || (seed === Nill)) {
+	[seed, iterable] = advance(iterable, seed);
+	if (seed === Nill)
+	    return undefined;
+    } // if ...
     let total = seed;
     for (const v of iterable)
 	total = fn(total, v);
     return total;
 } // reduce
 
-function advance(iterable) {
+function advance(iterable, seed) {
     const iterator = iterable[Symbol.iterator]();
     const head = iterator.next();
     if (head.done)
-	exhausted();
+	return seed !== Nill ? exhausted() : [Nill];
     return [head.value, new MangoRange(iterator)];
 } // advance
 
@@ -172,8 +181,8 @@ class MangoRange {
     last() { return last(this.iterable, exhausted); }
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
-    max(comparator = (a,b) => a > b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b); }
-    min(comparator = (a,b) => a < b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b); }
+    max(comparator = (a,b) => a > b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b, Nill); }
+    min(comparator = (a,b) => a < b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b, Nill); }
 
     none(predicate) { return none(this.iterable, predicate); }
     every(predicate) { return every(this.iterable, predicate); }
