@@ -191,6 +191,7 @@ class MangoRange {
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
     max(comparator) { return max(this.iterable, comparator); }
+    min(comparator = (a,b) => a < b) { return reduce(this.iterable, (a,b) => comparator(a,b) ? a : b); }
 
     none(predicate) { return none(this.iterable, predicate); }
     every(predicate) { return every(this.iterable, predicate); }
