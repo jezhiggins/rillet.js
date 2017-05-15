@@ -13,7 +13,7 @@ const from = require('rillet').from;
 
 const array_or_other_iterable = fn();
 
-from(array_or_other_iterable).where(n => n > 100).forEach(x => console.log(x));
+from(array_or_other_iterable).filter(n => n > 100).forEach(x => console.log(x));
 ```
 
 ## Methods
