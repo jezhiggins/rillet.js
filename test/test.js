@@ -219,4 +219,13 @@ describe("RilletRange", () => {
         t("['fruit','veg'].join", of('fruit', 'veg').join(), ['fruit','veg'].join());
     });
 
+    describe("max", () => {
+	t("max(a,b => a > b)", from(array).max(), 8);
+	t("[8,7,6,5,4,3,2,1].max(a,b => a > b)", of(8,7,6,5,4,3,2,1).max(), 8);
+	t("[5,6,7,8,7,6,5].max(a,b => a > b)", of(8,7,6,5,4,3,2,1).max(), 8);
+	t("max(a,b => -a > -b)", from(array).max((a,b) => -a > -b), 1);
+	t("['a','c','b'].max()", from('acb').max(), 'c');
+	t("[5].max()", of(5).max(), 5);
+	exhausted("[].max()", () => from([]).max());
+    });
 });

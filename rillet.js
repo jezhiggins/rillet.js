@@ -121,6 +121,23 @@ function join(iterable, separator = ',') {
     return s;
 } // join
 
+function max(iterable, comparator = (a,b) => a > b) {
+    const iterator = iterable[Symbol.iterator]();
+    let head = iterator.next();
+    if (head.done)
+	exhausted();
+
+    let m = head.value;
+
+    head = iterator.next();
+    while(!head.done) {
+	if (comparator(head.value, m))
+	    m = head.value;
+	head = iterator.next();
+    } // while
+
+    return m;
+} // max
 
 function exhausted() {
     throw "Sequence is exhausted";
@@ -173,13 +190,13 @@ class MangoRange {
     last() { return last(this.iterable, exhausted); }
     lastOrDefault(defaultValue) { return last(this.iterable, () => defaultValue); }
     reduce(fn, seed) { return reduce(this.iterable, fn, seed); }
+    max(comparator) { return max(this.iterable, comparator); }
 
     none(predicate) { return none(this.iterable, predicate); }
     every(predicate) { return every(this.iterable, predicate); }
     some(predicate) { return some(this.iterable, predicate); }
 
     join(separator) { return join(this.iterable, separator); }
-
     toArray() { return Array.from(this.iterable); }
 } // class MangoRange
 
