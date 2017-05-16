@@ -1,9 +1,9 @@
 # rillet.js
 Lazily evaluated ranges/streams/fp library built around ES6 generators
 
-The Javascript Array methods provide a number of methods that we typically associate with functional languages - filter/concat/forEach/etc.  However, they're generally eagerly and exhaustively evaluated.
+The Javascript Array class provide a number of methods that we typically associate with functional languages - filter/concat/forEach/etc.  However, they're generally eagerly and exhaustively evaluated.
 
-Mango.js uses ES6 iterators to build these same methods in a lazily evaluated, streamable style, along the lines of .NET LINQ methods, Java 8 Streams, that kind of thing.
+Rillet.js uses ES6 iterators to build these same methods in a lazily evaluated, streamable style, along the lines of .NET LINQ methods, Java 8 Streams, that kind of thing.
 
 
 ## Trivial Example
@@ -35,11 +35,13 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 
 
 ### Terminal methods
-A terminal method drains the pipeline producing some, possible a null, result.
+A terminal method drains the range producing a single result.
 
-* `Range.prototype.reduce(fn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw
+* `Range.prototype.reduce(bifn, [initial])` applies `fn` against an accumulator and each element in the sequence, to reduce to a single value. The optional `initial` is used as the first argument to the first call of `fn`. If no `initial` is given, the first element in the sequence is used. Calling reduce on an empty sequence without an initial value will throw
 
-* `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence
+Strictly speaking, reduce is all you need.  However, for readability and expressiveness, rillet.js provides a number of methods implementing common terminal operations
+
+* `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence.  Returns undefined
 * `Range.prototype.count` returns the count of items in the sequence
 * `Range.prototype.first()` returns the first value in the sequence, or throws if the sequence is empty
 * `Range.prototype.firstOrDefault(defaultValue)` returns the first value in the sequence, or the defaultValue if the sequence is empty
@@ -53,3 +55,10 @@ A terminal method drains the pipeline producing some, possible a null, result.
 * `Range.prototype.some(predicate)` returns true if one or more of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.join(separator)` join all the items in the sequence into a string, using the provided separator.  If the separator is not given, the items are separated with a comma.
 * `Range.prototype.toArray()` gathers all the items in the sequence into an array.
+
+In the notes above, 
+* `fn` has the form `x => operation(x)`, where operation returns a value 
+* `bifn` has the form `(x,y) => operation(x, y)`, where operation returns a value
+* `predicate` has the form `x => test(x)`, where test returns a boolean
+* `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds
+* where a method has the same name and form as a method on Array, it will exhibit the same behaviour
