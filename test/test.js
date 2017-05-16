@@ -6,6 +6,11 @@ const assert = require("assert");
 function t(msg, src, expected) {
     const result = (src && src.toArray) ? src.toArray() : src;
 
+    if (Number.isNaN(expected)) {
+	it(msg, () => assert.ok(Number.isNaN(result)));
+	return;
+    } // if ...
+
     it(msg, () => assert.deepStrictEqual(result, expected));
 } // compare
 
@@ -237,5 +242,17 @@ describe("RilletRange", () => {
 	t("['a','c','b'].min()", from('acb').min(), 'a');
 	t("[5].min()", of(5).min(), 5);
 	t("[].min()", from([]).min(), undefined);
+    });
+
+    describe("sum", () => {
+	t("sum()", from(array).sum(), 36);
+	t("[2].sum()", of(2).sum(), 2);
+	t("[].sum()", of().sum(), 0);
+	t("['1','2','3']", of('1','2','3').sum(), 6);
+	t("[2,null,3].sum()", of(2,null,3).sum(), 5);
+	t("[null].sum()", of(null).sum(), 0);
+	t("[undefined].sum()", of(undefined).sum(), NaN);
+	t("[1, undefined].sum()", of(1, undefined).sum(), NaN);
+	t("[1, 'fruit', 2].sum()", of(1, 'fruit', 2).sum(), NaN);
     });
 });

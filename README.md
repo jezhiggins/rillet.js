@@ -47,6 +47,7 @@ A terminal method drains the pipeline producing some, possible a null, result.
 * `Range.prototype.lastOrDefault(defaultValue)` returns the last value in the sequence, or the defaultValue if the sequence is empty.
 * `Range.prototype.max([comparator])` finds the maximum item of the stream, according to the provided comparator.  If no comparator is provided, it defaults to `(item, currentmax) => item > currentmax`. Returns undefined if the sequence is empty.
 * `Range.prototype.min([comparator])` finds the minimum item of the stream, according to the provided comparator.  If no comparator is provided, it defaults to `(item, currentmax) => item < currentmax`. Returns undefined if the sequence is empty.
+* `Range.prototype.sum()` calculates the arithmetic sum of the items in the sequence, calling Number(x) on each item.  The sum of the empty range is 0.
 * `Range.prototype.none(predicate)` returns true if none of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.every(predicate)` returns true if all of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.some(predicate)` returns true if one or more of the items in the sequence match the predicate, and false otherwise
