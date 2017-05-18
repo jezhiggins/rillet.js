@@ -5,6 +5,10 @@ The Javascript Array class provide a number of methods that we typically associa
 
 Rillet.js uses ES6 iterators to build these same methods in a lazily evaluated, streamable style, along the lines of .NET LINQ methods, Java 8 Streams, that kind of thing.
 
+## Installation
+
+Rillet.js is available from npm 
+```npm install rillet```
 
 ## Trivial Example
 
@@ -62,3 +66,9 @@ In the notes above,
 * `predicate` has the form `x => test(x)`, where test returns a boolean
 * `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds
 * where a method has the same name and form as a method on Array, it will exhibit the same behaviour
+
+## License
+
+Copyright (c) 2017 JezUK Ltd 
+
+Licensed under the terms of the MIT License.
