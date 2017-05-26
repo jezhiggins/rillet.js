@@ -154,6 +154,8 @@ describe("RilletRange", () => {
 	t("flatten([[1, 2], [3, 4]])", from([[1, 2], [3, 4]]).flatten(), [1,2,3,4]);
 	t("flatten([[[[1],2],3],4])", from([[[[1],2],3],4]).flatten(), [1,2,3,4]);
 	t("flatten([1,[2,[3,[4]]]])", from([1,[2,[3,[4]]]]).flatten(), [1,2,3,4]);
+        t("flatten([undefined, undefined])", from([undefined, undefined]).flatten(), [undefined, undefined]);
+        t("flatten([undefined, [undefined, 'fish'], undefined]).flatten()", from([undefined, [undefined, 'fish'], undefined]).flatten(), [undefined, undefined, 'fish', undefined]);
     });
 
     describe("reduce", () => {

@@ -33,11 +33,15 @@ function* drop(iterable, count) {
     yield* iter;
 } // drop
 
+function non_string_iterable(item) {
+  return (item && item[Symbol.iterator] && typeof item != "string");
+} // non_string_iterable
+
 function* concat(...items) {
     for (const item of items) {
-	for (const a of MangoRange.from(item)) {
+        for (const a of MangoRange.from(item)) {
 	    // embedded iterable - flatten
-	    if (a[Symbol.iterator] && typeof a != "string")
+  	    if (non_string_iterable(a))
 		yield* concat(...a)
 	    else
 		yield a;
@@ -47,7 +51,7 @@ function* concat(...items) {
 
 function* flatten(iterable) {
     for (const item of iterable)
-	if (item[Symbol.iterator] && typeof item != "string")
+        if (non_string_iterable(item))
 	    yield* flatten(item);
         else
 	    yield item;
