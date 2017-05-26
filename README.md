@@ -7,7 +7,7 @@ Rillet.js uses ES6 iterators to build these same methods in a lazily evaluated, 
 
 ## Installation
 
-Rillet.js is available from npm 
+Rillet.js is available from npm
 ```npm install rillet```
 
 ## Trivial Example
@@ -36,7 +36,7 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 * `Range.prototype.drop(count)` discards the first `count` items of the sequence, and returns the remainder
 * `Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
 * `Range.prototype.flatten()` flattens any iterables in the sequence, creating a new stream which is entirely flat
-
+* `Range.prototype.uniq([fn])` filters duplicates from the stream.  The projection `fn` is optional, defaulting to the identity function.
 
 ### Terminal methods
 A terminal method drains the range producing a single result.
@@ -60,8 +60,8 @@ Strictly speaking, reduce is all you need.  However, for readability and express
 * `Range.prototype.join(separator)` join all the items in the sequence into a string, using the provided separator.  If the separator is not given, the items are separated with a comma.
 * `Range.prototype.toArray()` gathers all the items in the sequence into an array.
 
-In the notes above, 
-* `fn` has the form `x => operation(x)`, where operation returns a value 
+In the notes above,
+* `fn` has the form `x => operation(x)`, where operation returns a value
 * `bifn` has the form `(x,y) => operation(x, y)`, where operation returns a value
 * `predicate` has the form `x => test(x)`, where test returns a boolean
 * `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds
@@ -69,6 +69,6 @@ In the notes above,
 
 ## License
 
-Copyright (c) 2017 JezUK Ltd 
+Copyright (c) 2017 JezUK Ltd
 
 Licensed under the terms of the MIT License.

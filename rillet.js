@@ -53,6 +53,17 @@ function* flatten(iterable) {
 	    yield item;
 } // flatten
 
+function* uniq(iterable, fn) {
+    const seen = new Set();
+    for (const item of iterable) {
+        const projection = fn(item);
+        if (seen.has(projection))
+            continue;
+        seen.add(projection);
+        yield item;
+    } // for ...
+} // uniq
+
 function first(iterable, fn) {
     const {done, value} = iterable[Symbol.iterator]().next();
     if (done)
@@ -134,6 +145,8 @@ function exhausted() {
     throw "Sequence is exhausted";
 } // exhausted
 
+function identity(a) { return a; }
+
 ////////////////////////////
 class MangoRange {
     static of(...params) {
@@ -173,6 +186,7 @@ class MangoRange {
     drop(count) { return new MangoRange(drop(this.iterable, count)); }
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
     flatten() { return new MangoRange(flatten(this.iterable)); }
+    uniq(fn = identity) { return new MangoRange(uniq(this.iterable, fn)); }
 
     count() { let count = 0; for (const a of this.iterable) ++count; return count; }
     forEach(fn) { for (const a of this.iterable) fn(a); }

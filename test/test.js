@@ -255,4 +255,10 @@ describe("RilletRange", () => {
 	t("[1, undefined].sum()", of(1, undefined).sum(), NaN);
 	t("[1, 'fruit', 2].sum()", of(1, 'fruit', 2).sum(), NaN);
     });
+
+  describe("uniq", () => {
+      t("uniq()", from(array).uniq(), array);
+      t("uniq(array, array)", from(array).concat(array).uniq(), array);
+      t("uniq(a => a%2 ? a+1 : a)", from(array).uniq(a => a%2 ? a+1 : a), [1,3,5,7]);
+  });
 });
