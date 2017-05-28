@@ -8,7 +8,9 @@ Rillet.js uses ES6 iterators to build these same methods in a lazily evaluated, 
 ## Installation
 
 Rillet.js is available from npm
-```npm install rillet```
+```
+npm install rillet
+```
 
 ## Trivial Example
 
