@@ -75,6 +75,6 @@ Every other stream related name was already taken on npm, and this library is on
 
 ## License
 
-Copyright (c) 2017 JezUK Ltd
+Copyright (c) 2017 [JezUK Ltd](http://www.jezuk.co.uk/)
 
 Licensed under the terms of the MIT License.
