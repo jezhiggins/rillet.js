@@ -39,6 +39,7 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 * `Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
 * `Range.prototype.flatten()` flattens any iterables in the sequence, creating a new stream which is entirely flat
 * `Range.prototype.uniq([fn])` filters duplicates from the stream.  The projection `fn` is optional, defaulting to the identity function.
+* `Range.prototype.compact()` removes all falsey values from the stream - `0, false, null, undefined, '', NaN` are all falsey.
 
 ### Terminal methods
 A terminal method drains the range producing a single result.

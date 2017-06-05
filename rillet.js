@@ -68,6 +68,12 @@ function* uniq(iterable, fn) {
     } // for ...
 } // uniq
 
+function* compact(iterable) {
+    for (const item of iterable)
+        if (!!item)
+            yield item;
+} // compact
+
 function first(iterable, fn) {
     const {done, value} = iterable[Symbol.iterator]().next();
     if (done)
@@ -191,6 +197,7 @@ class MangoRange {
     concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
     flatten() { return new MangoRange(flatten(this.iterable)); }
     uniq(fn = identity) { return new MangoRange(uniq(this.iterable, fn)); }
+    compact() { return new MangoRange(compact(this.iterable)); }
 
     count() { let count = 0; for (const a of this.iterable) ++count; return count; }
     forEach(fn) { for (const a of this.iterable) fn(a); }

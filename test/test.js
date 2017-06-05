@@ -263,4 +263,9 @@ describe("RilletRange", () => {
       t("uniq(array, array)", from(array).concat(array).uniq(), array);
       t("uniq(a => a%2 ? a+1 : a)", from(array).uniq(a => a%2 ? a+1 : a), [1,3,5,7]);
   });
+
+  describe("compact", () => {
+      t("compact()", from(array).compact(), array);
+      t("compact(0, 1, false, 2, null, 3, undefined, 4, '', 5, NaN, 6)", from([0, 1, false, 2, null, 3, undefined, 4, '', 5, NaN, 6]).compact(), [1,2,3,4,5,6]);
+  });
 });
