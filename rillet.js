@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 class NillValue {
     constructor() { }
 } // class NillValue
