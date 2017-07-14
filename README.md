@@ -67,14 +67,14 @@ In the notes above,
 * `fn` has the form `x => operation(x)`, where operation returns a value
 * `bifn` has the form `(x,y) => operation(x, y)`, where operation returns a value
 * `predicate` has the form `x => test(x)`, where test returns a boolean
-* `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds
+* `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds.  E.g. a comparate function `less_then(x, y)` would return true if x was less that y, and false otherwise.
 * where a method has the same name and form as a method on Array, it will exhibit the same behaviour
 
 ## Name
 
 A rillet is small rill.  What's a rill? A very small brook. A brook? It's a small stream.
 
-Every other stream related name was already taken on npm, and this library is only a very small library, hence rillet.
+Every other stream related name was already taken on npm and this library is only a very small library, hence rillet.
 
 ## License
 
