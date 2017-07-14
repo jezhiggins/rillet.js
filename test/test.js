@@ -6,10 +6,8 @@ const assert = require("assert");
 function t(msg, src, expected) {
   const result = (src && src.toArray) ? src.toArray() : src;
 
-  if (Number.isNaN(expected)) {
-    it(msg, () => assert.ok(Number.isNaN(result)));
-    return;
-  } // if ...
+  if (Number.isNaN(expected))
+    return it(msg, () => assert.ok(Number.isNaN(result)));
 
   it(msg, () => assert.deepStrictEqual(result, expected));
 } // compare
@@ -95,6 +93,12 @@ describe("RilletRange", () => {
   describe("take/drop", () => {
     t("take(5).drop(3)", from(array).take(5).drop(3), [4,5]);
     t("drop(3).take(3)", from(array).drop(3).take(3), [4,5,6]);
+  });
+
+  describe("dropWhile", () => {
+    t("dropWhile(true)", from(array).dropWhile(() => true), []);
+    t("dropWhile(false)", from(array).dropWhile(() => false), array);
+    t("dropWhile(< 6)", from(array).dropWhile(n => n < 6), [6, 7, 8]);
   });
 
   describe("concat", () => {

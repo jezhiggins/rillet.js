@@ -31,6 +31,16 @@ function* drop(iterable, count) {
   yield* iter;
 } // drop
 
+function* dropWhile(iterable, predicate) {
+  const iter = iterable[Symbol.iterator]();
+  for (const a of iter)
+    if (!predicate(a)) {
+      yield a;
+      break;
+    } // if ...
+  yield* iter;
+} // dropWhile
+
 function non_string_iterable(item) {
   return (item && item[Symbol.iterator] && typeof item != "string");
 } // non_string_iterable
@@ -192,6 +202,7 @@ class MangoRange {
   map(fn) { return new MangoRange(map(this.iterable, fn)); }
   take(count) { return new MangoRange(take(this.iterable, count)); }
   drop(count) { return new MangoRange(drop(this.iterable, count)); }
+  dropWhile(predicate) { return new MangoRange(dropWhile(this.iterable, predicate)); }
   concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
   flatten() { return new MangoRange(flatten(this.iterable)); }
   uniq(fn = identity) { return new MangoRange(uniq(this.iterable, fn)); }
