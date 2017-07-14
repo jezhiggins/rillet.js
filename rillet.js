@@ -24,6 +24,14 @@ function* take(iterable, count) {
   } // for ...
 } // take
 
+function* takeWhile(iterable, predicate) {
+  for (const a of iterable) {
+    if (!predicate(a))
+      break;
+    yield a;
+  } // for ...
+} // takeWhile
+
 function* drop(iterable, count) {
   const iter = iterable[Symbol.iterator]();
   for (let i = 0; i != count; ++i)
@@ -201,6 +209,7 @@ class MangoRange {
   filter(predicate) { return new MangoRange(filter(this.iterable, predicate)); }
   map(fn) { return new MangoRange(map(this.iterable, fn)); }
   take(count) { return new MangoRange(take(this.iterable, count)); }
+  takeWhile(predicate) { return new MangoRange(takeWhile(this.iterable, predicate)); }
   drop(count) { return new MangoRange(drop(this.iterable, count)); }
   dropWhile(predicate) { return new MangoRange(dropWhile(this.iterable, predicate)); }
   concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }

@@ -95,6 +95,12 @@ describe("RilletRange", () => {
     t("drop(3).take(3)", from(array).drop(3).take(3), [4,5,6]);
   });
 
+  describe("takeWhile", () => {
+    t("takeWhile(true)", from(array).takeWhile(() => true), array);
+    t("takeWhile(false)", from(array).takeWhile(() => false), []);
+    t("takeWhile(< 6)", from(array).takeWhile(n => n < 6), [1, 2, 3, 4, 5]);
+  });
+
   describe("dropWhile", () => {
     t("dropWhile(true)", from(array).dropWhile(() => true), []);
     t("dropWhile(false)", from(array).dropWhile(() => false), array);

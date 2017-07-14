@@ -35,8 +35,9 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 * `Range.prototype.filter(predicate)` filters the returned sequence so only those elements that pass the test that `predicate` implements.
 * `Range.prototype.map(fn)` returns the result of applying `fn` to each item in the sequence
 * `Range.prototype.take(count)` returns only the first `count` items in the sequence
+* `Range.prototype.takeWhile(predicate)` returns items from the start of the sequence for as long as the predicate is true
 * `Range.prototype.drop(count)` discards the first `count` items of the sequence, and returns the remainder
-* `Range.prototype.dropWhile(predicate)` discards items from the sequence until the predicate fails, returning the remainder
+* `Range.prototype.dropWhile(predicate)` discards items from the start sequence for as long as the predicate is true, returning the remainder
 * `Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
 * `Range.prototype.flatten()` flattens any iterables in the sequence, creating a new stream which is entirely flat
 * `Range.prototype.uniq([fn])` filters duplicates from the stream.  The projection `fn` is optional, defaulting to the identity function.
