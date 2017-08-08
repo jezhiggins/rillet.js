@@ -51,7 +51,7 @@ A terminal method drains the range producing a single result.
 Strictly speaking, reduce is all you need.  However, for readability and expressiveness, rillet.js provides a number of methods implementing common terminal operations
 
 * `Range.prototype.forEach(fn)` applies `fn` to each item in the sequence.  Returns undefined
-* `Range.prototype.count` returns the count of items in the sequence
+* `Range.prototype.count()` returns the count of items in the sequence
 * `Range.prototype.first()` returns the first value in the sequence, or throws if the sequence is empty
 * `Range.prototype.firstOrDefault(defaultValue)` returns the first value in the sequence, or the defaultValue if the sequence is empty
 * `Range.prototype.last()` returns the last value in the sequence, or throws if the sequence is empty.  Will never return if the sequence is unbounded.
