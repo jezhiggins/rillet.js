@@ -4,6 +4,17 @@ class NillValue {
 
 const Nill = new NillValue();
 
+function* cycle(iterable) {
+  if (Array.isArray(iterable)) {
+    if (iterable.length == 0)
+      return;
+    while (true)
+      yield* iterable;
+  } // if ...
+
+  yield* iterable;
+} // cycle
+
 function* filter(iterable, predicate) {
   for (const a of iterable)
     if (predicate(a))
@@ -196,6 +207,11 @@ class MangoRange {
       return new MangoRange(iterable);
     return new MangoRange([iterable]);
   } // from
+  static cycle(iterable) {
+    if (iterable == null)
+      return new MangoRange([]);
+    return new MangoRange(cycle(iterable));
+  } // cycle
 
   ///////////////////////////
   constructor(iterable) {
