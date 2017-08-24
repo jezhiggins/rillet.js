@@ -120,6 +120,10 @@ function* zipper(iterators) {
   } // while
 } // zipper
 
+function* numbers(start, step) {
+  for (let i = start; ; i += step)
+    yield i;
+} // numbers
 
 function first(iterable, fn) {
   const {done, value} = iterable[Symbol.iterator]().next();
@@ -248,6 +252,9 @@ class MangoRange {
 
     return new MangoRange(zipper(iterators));
   } // zip
+  static numbers(start = 0, step = 1) {
+    return new MangoRange(numbers(start, step));
+  } // numbers
 
   ///////////////////////////
   constructor(iterable) {

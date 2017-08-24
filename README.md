@@ -27,8 +27,8 @@ from(array_or_other_iterable).filter(n => n > 100).forEach(x => console.log(x));
 * `Range.from(iterable)` creates a Range from an array-like or other iterable object (similar to `Array.from()`)
 * `Range.of(...items)` creates a Range with a variable number of arguments (similar to `Array.of`)
 * `Range.zip(...iterables)` create a Range which returns a series of arrays, each containing the corresponding item from each iterables. E.g. given `p, q, ...` return [p[0], q[0]], [p[1], q[1]], ... The sequence terminates when any of the iterables is exhausted.
+* `Range.numbers(start = 0, step = 1)` creates a range of numbers, `start`, `start + step`, `start + 2*step` ...
 * `Range.empty()` create an empty Range - a new Range with no items. Directly equivalent to `from([])` or `of()`
-
 
 The returned range is an iterable object, and so can be used in all the places where Javascript accepts an iterable - eg for/of loop, etc
 
