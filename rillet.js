@@ -12,7 +12,6 @@ function* cycle(iterable) {
       yield* iterable;
   } // if ...
 
-  console.log("Shitter!");
   const buffer = [];
   for (const i of iterable) {
     buffer.push(i);
