@@ -4,23 +4,6 @@ class NillValue {
 
 const Nill = new NillValue();
 
-function* cycle(iterable) {
-  if (Array.isArray(iterable)) {
-    if (iterable.length == 0)
-      return;
-    while (true)
-      yield* iterable;
-  } // if ...
-
-  const buffer = [];
-  for (const i of iterable) {
-    buffer.push(i);
-    yield i;
-  } // for ...
-
-  yield* cycle(buffer);
-} // cycle
-
 function* filter(iterable, predicate) {
   for (const a of iterable)
     if (predicate(a))
@@ -107,6 +90,37 @@ function* compact(iterable) {
       yield item;
 } // compact
 
+function* cycle(iterable) {
+  if (Array.isArray(iterable)) {
+    if (iterable.length == 0)
+      return;
+    while (true)
+      yield* iterable;
+  } // if ...
+
+  const buffer = [];
+  for (const i of iterable) {
+    buffer.push(i);
+    yield i;
+  } // for ...
+
+  yield* cycle(buffer);
+} // cycle
+
+function* zipper(iterators) {
+  while(true) {
+    const values = [];
+    for (const iter of iterators) {
+      const {done, value} = iter.next();
+      if (done)
+	return;
+      values.push(value);
+    } // for ...
+    yield values;
+  } // while
+} // zipper
+
+
 function first(iterable, fn) {
   const {done, value} = iterable[Symbol.iterator]().next();
   if (done)
@@ -192,17 +206,20 @@ function identity(a) { return a; }
 
 ////////////////////////////
 class MangoRange {
+  static empty() {
+    return new MangoRange([]);
+  } // empty
   static of(...params) {
-    if (params.length == 0)
-      return new MangoRange([]);
-    if (params.length == 1) {
+    if (params.length === 0)
+      return MangoRange.empty();
+    if (params.length === 1) {
       return new MangoRange(params);
     } // if ...
     return MangoRange.from(params);
   } // MangoRange
   static from(iterable) {
     if (iterable == null)
-      return new MangoRange([]);
+      return MangoRange.empty();
 
     if (Array.isArray(iterable)) {
       if (iterable.length == 1)
@@ -213,6 +230,24 @@ class MangoRange {
       return new MangoRange(iterable);
     return new MangoRange([iterable]);
   } // from
+  static zip(...iterables) {
+    if (iterables.length === 0)
+      return MangoRange.empty();
+
+    const iterators = [];
+    for (const iterable of iterables) {
+      if (!iterable)
+	return MangoRange.empty();
+
+      const iter = iterable[Symbol.iterator]();
+      if (!iter)
+	return MangoRange.empty();
+
+      iterators.push(iter);
+    } // for ...
+
+    return new MangoRange(zipper(iterators));
+  } // zip
 
   ///////////////////////////
   constructor(iterable) {
