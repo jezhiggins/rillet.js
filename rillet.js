@@ -12,7 +12,14 @@ function* cycle(iterable) {
       yield* iterable;
   } // if ...
 
-  yield* iterable;
+  console.log("Shitter!");
+  const buffer = [];
+  for (const i of iterable) {
+    buffer.push(i);
+    yield i;
+  } // for ...
+
+  yield* cycle(buffer);
 } // cycle
 
 function* filter(iterable, predicate) {
@@ -207,11 +214,6 @@ class MangoRange {
       return new MangoRange(iterable);
     return new MangoRange([iterable]);
   } // from
-  static cycle(iterable) {
-    if (iterable == null)
-      return new MangoRange([]);
-    return new MangoRange(cycle(iterable));
-  } // cycle
 
   ///////////////////////////
   constructor(iterable) {
@@ -232,6 +234,7 @@ class MangoRange {
   flatten() { return new MangoRange(flatten(this.iterable)); }
   uniq(fn = identity) { return new MangoRange(uniq(this.iterable, fn)); }
   compact() { return new MangoRange(compact(this.iterable)); }
+  cycle() { return new MangoRange(cycle(this.iterable)); }
 
   count() { let count = 0; for (const a of this.iterable) ++count; return count; }
   forEach(fn) { for (const a of this.iterable) fn(a); }
