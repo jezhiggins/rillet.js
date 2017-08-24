@@ -19,7 +19,30 @@ const from = require('rillet').from;
 
 const array_or_other_iterable = fn();
 
-from(array_or_other_iterable).filter(n => n > 100).forEach(x => console.log(x));
+from(array_or_other_iterable).
+        filter(n => n > 100).
+        forEach(x => console.log(x));
+```
+
+## More Involved Example
+
+``` javascript
+const rillet = require('./rillet.js');
+
+const { of, zip, numbers } = rillet;
+
+const fizzes = () => of('', '', 'Fizz').cycle();
+const buzzes = () => of('', '', '', '', 'Buzz').cycle();
+const words = () => zip(fizzes(), buzzes()).map(([f,b]) => `${f}${b}`)
+
+const integers = () => numbers(1);
+
+const fizzbuzz = (howMany) =>
+        zip(words(), integers()).
+        map(([w, n]) => !!w ? w : n).
+        take(howMany);
+
+fizzbuzz(100).forEach(console.log);
 ```
 
 ## Methods
