@@ -4,16 +4,26 @@ const t = require("./t.js");
 const array = [1,2,3,4,5,6,7,8];
 
 describe("take", () => {
-  t("take(1)", from(array).take(1), [1]);
-  t("take(3)", from(array).take(3), [1,2,3]);
-  t("take(7)", from(array).take(7), [1,2,3,4,5,6,7]);
-  t("take(8)", from(array).take(8), [1,2,3,4,5,6,7,8]);
-  t("take(0)", from(array).take(0), []);
-  t("take(13)", from(array).take(13), [1,2,3,4,5,6,7,8]);
+  const take_tests = [
+    [ 1, [ 1 ] ],
+    [ 3, [ 1, 2, 3 ] ],
+    [ 7, [ 1, 2, 3, 4, 5, 6, 7 ] ],
+    [ 8, [ 1, 2, 3, 4, 5, 6, 7, 8 ] ],
+    [ 0, [] ],
+    [ 13, [ 1, 2, 3, 4, 5, 6, 7, 8 ] ]
+  ]
+
+  for (const [len, expected] of take_tests)
+    t(`take(${len})`, from(array).take(len), expected)
 });
 
 describe("takeWhile", () => {
-  t("takeWhile(true)", from(array).takeWhile(() => true), array);
-  t("takeWhile(false)", from(array).takeWhile(() => false), []);
-  t("takeWhile(< 6)", from(array).takeWhile(n => n < 6), [1, 2, 3, 4, 5]);
+  const take_while_tests = [
+    [ 'true', () => true, array ],
+    [ 'false', () => false, [] ],
+    [ '< 6', n => n < 6, [ 1, 2, 3, 4, 5 ]]
+  ]
+
+  for (const [label, predicate, expected] of take_while_tests)
+    t(`takeWhile(${label})`, from(array).takeWhile(predicate), expected)
 });
