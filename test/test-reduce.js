@@ -6,22 +6,28 @@ const array = [1,2,3,4,5,6,7,8];
 
 
 describe("reduce", () => {
-  t("reduce(array, 0)",
-    from(array).reduce((x, y) => x + y, 0),
-    array.reduce((x, y) => x + y, 0)
-   );
-  t("reduce(array, 99)",
-    from(array).reduce((x, y) => x + y, 99),
-    array.reduce((x, y) => x + y, 99)
-   );
-  t("reduce(array)",
-    from(array).reduce((x, y) => x + y),
-    array.reduce((x, y) => x + y)
-   );
-  t("reduce([], 56)",
-    from([]).reduce((x, y) => x + y, 56),
-    [].reduce((x, y) => x + y, 56)
-   );
+  const reduce_tests = [
+    [ array, 0 ],
+    [ array, 99 ],
+    [ array, 56 ],
+    [ array, -1 ],
+    [ array, -10 ],
+    [ array, null ],
+    [ [], 56 ],
+    [ [1], 37 ],
+    [ [1], null ]
+  ];
+
+  const sum = (x, y) => x + y;
+  const mult = (x, y) => x * y;
+  for(const [label, fn] of [ ['sum', sum], ['multiply', mult]])
+    for(const [data, seed] of reduce_tests)
+      t(
+        `[${data}].reduce(${label}, ${seed})`,
+        from(data).reduce(fn, seed),
+        data.reduce(fn, seed)
+      )
+
   exhausted("reduce([])", () =>
     from([]).reduce((x, y) => x + y)
    );
