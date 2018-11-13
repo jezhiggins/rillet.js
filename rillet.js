@@ -113,7 +113,7 @@ function* zipper(iterators) {
     for (const iter of iterators) {
       const {done, value} = iter.next();
       if (done)
-	return;
+        return;
       values.push(value);
     } // for ...
     yield values;
@@ -241,11 +241,11 @@ class MangoRange {
     const iterators = [];
     for (const iterable of iterables) {
       if (!iterable)
-	return MangoRange.empty();
+        return MangoRange.empty();
 
       const iter = iterable[Symbol.iterator]();
       if (!iter)
-	return MangoRange.empty();
+        return MangoRange.empty();
 
       iterators.push(iter);
     } // for ...
