@@ -15,6 +15,16 @@ function* map(iterable, fn) {
     yield fn(a);
 } // map
 
+function* flatMap(iterable, fn) {
+  for (const a of iterable) {
+    const v = fn(a)
+    if (non_string_iterable(v))
+      yield* v;
+    else
+      yield v;
+  }
+} // flatMap
+
 function* take(iterable, count) {
   for (const a of iterable) {
     if (count == 0)
@@ -267,6 +277,7 @@ class MangoRange {
 
   filter(predicate) { return new MangoRange(filter(this.iterable, predicate)); }
   map(fn) { return new MangoRange(map(this.iterable, fn)); }
+  flatMap(fn) { return new MangoRange(flatMap(this.iterable, fn)); }
   take(count) { return new MangoRange(take(this.iterable, count)); }
   takeWhile(predicate) { return new MangoRange(takeWhile(this.iterable, predicate)); }
   drop(count) { return new MangoRange(drop(this.iterable, count)); }

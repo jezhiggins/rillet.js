@@ -60,6 +60,7 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 
 * `Range.prototype.filter(predicate)` filters the returned sequence so only those elements that pass the test that `predicate` implements.
 * `Range.prototype.map(fn)` returns the result of applying `fn` to each item in the sequence
+* `Range.prototype.flatMap(fn)` applies `fn` to each item in the sequence, then flattens the result into a new sequence
 * `Range.prototype.take(count)` returns only the first `count` items in the sequence
 * `Range.prototype.takeWhile(predicate)` returns items from the start of the sequence for as long as the predicate is true
 * `Range.prototype.drop(count)` discards the first `count` items of the sequence, and returns the remainder
