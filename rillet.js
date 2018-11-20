@@ -75,6 +75,14 @@ function* concat(...items) {
   } /// for ...
 } // concat
 
+function* flat(iterable, depth) {
+  for (const item of iterable)
+    if (non_string_iterable(item) && depth > 1)
+      yield* flat(item, depth-1);
+    else
+      yield item;
+} // flat
+
 function* flatten(iterable) {
   for (const item of iterable)
     if (non_string_iterable(item))
@@ -283,6 +291,7 @@ class MangoRange {
   drop(count) { return new MangoRange(drop(this.iterable, count)); }
   dropWhile(predicate) { return new MangoRange(dropWhile(this.iterable, predicate)); }
   concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
+  flat(depth = 1) { return new MangoRange(flat(this.iterable, depth)); }
   flatten() { return new MangoRange(flatten(this.iterable)); }
   uniq(fn = identity) { return new MangoRange(uniq(this.iterable, fn)); }
   compact() { return new MangoRange(compact(this.iterable)); }
