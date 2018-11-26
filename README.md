@@ -24,10 +24,23 @@ from(array_or_other_iterable).
         forEach(x => console.log(x));
 ```
 
+Rillet's Range objects are themselves iterable, so we could also write
+
+```javascript
+const from = require('rillet').from;
+
+const array_or_other_iterable = fn();
+
+const filtered_iterable = from(array_or_other_iterable).filter(n => n > 100)
+
+for (const x of filtered_iterable)
+  console.log(x)
+```
+
 ## More Involved Example
 
 ``` javascript
-const rillet = require('./rillet.js');
+const rillet = require('rillet');
 
 const { of, zip, numbers } = rillet;
 
