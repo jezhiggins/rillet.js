@@ -122,6 +122,6 @@ Every other stream related name was already taken on npm and this library is onl
 
 ## License
 
-Copyright (c) 2017 [JezUK Ltd](http://www.jezuk.co.uk/)
+Copyright (c) 2017,2024 [JezUK Ltd](http://www.jezuk.co.uk/)
 
 Licensed under the terms of the MIT License.
