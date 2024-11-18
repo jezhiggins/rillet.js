@@ -125,6 +125,24 @@ function* cycle(iterable) {
   yield* cycle(buffer);
 } // cycle
 
+function* sort(iterable, comparator) {
+  const gather = Array.isArray(iterable)
+    ? iterable
+    : Array.from(iterable);
+
+  const compFn = comparator
+    ? (l, r) => {
+      if (comparator(l, r))
+        return -1;
+      if (comparator(r, l))
+        return 1;
+      return 0;
+    }
+    : undefined
+  gather.sort(compFn);
+  yield* gather;
+}
+
 function* zipper(iterators) {
   while(true) {
     const values = [];
@@ -297,6 +315,7 @@ class MangoRange {
   distinct(fn = identity) { return new MangoRange(distinct(this.iterable, fn)); }
   compact() { return new MangoRange(compact(this.iterable)); }
   cycle() { return new MangoRange(cycle(this.iterable)); }
+  sort(comparator = undefined) { return new MangoRange(sort(this.iterable, comparator)); }
 
   count() { let count = 0; for (const a of this.iterable) ++count; return count; }
   forEach(fn) { for (const a of this.iterable) fn(a); }

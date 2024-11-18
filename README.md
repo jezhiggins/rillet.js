@@ -84,6 +84,7 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 * `Range.prototype.distinct([fn])` filters duplicates from the stream.  The projection `fn` is optional, defaulting to the identity function.
 * `Range.prototype.compact()` removes all falsey values from the stream - `0, false, null, undefined, '', NaN` are all falsey.
 * `Range.prototype.cycle()` returns an infinite sequence, looping over the items in the stream.
+* `Range.prototype.sort([comparator])` orders the sequence using the optional comparator. (*Note* this comparator paramater here differs from that taken by [Array.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)).
 
 ### Terminal methods
 A terminal method drains the range producing a single result.
@@ -112,7 +113,7 @@ In the notes above,
 * `fn` has the form `x => operation(x)`, where operation returns a value
 * `bifn` has the form `(x,y) => operation(x, y)`, where operation returns a value
 * `predicate` has the form `x => test(x)`, where test returns a boolean
-* `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds.  E.g. a comparate function `less_then(x, y)` would return true if x was less that y, and false otherwise.
+* `comparator` has the form `(x,y) => compare(x, y)`, where compare returns true if the comparison of x and y succeeds.  E.g. a comparator function `less_then(x, y)` would return true if x was less that y, and false otherwise.
 * where a method has the same name and form as a method on Array, it will exhibit the same behaviour
 
 ## Name
