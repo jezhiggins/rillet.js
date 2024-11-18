@@ -27,7 +27,7 @@ function* flatMap(iterable, fn) {
 
 function* take(iterable, count) {
   for (const a of iterable) {
-    if (count == 0)
+    if (count === 0)
       break;
     --count;
     yield a;
@@ -44,7 +44,7 @@ function* takeWhile(iterable, predicate) {
 
 function* drop(iterable, count) {
   const iter = iterable[Symbol.iterator]();
-  for (let i = 0; i != count; ++i)
+  for (let i = 0; i !== count; ++i)
     iter.next();
   yield* iter;
 } // drop
@@ -100,7 +100,7 @@ function* uniq(iterable, fn) {
     seen.add(projection);
     yield item;
   } // for ...
-} // uniq
+} // uniq`
 
 function* compact(iterable) {
   for (const item of iterable)
@@ -110,7 +110,7 @@ function* compact(iterable) {
 
 function* cycle(iterable) {
   if (Array.isArray(iterable)) {
-    if (iterable.length == 0)
+    if (iterable.length === 0)
       return;
     while (true)
       yield* iterable;
@@ -244,7 +244,7 @@ class MangoRange {
       return MangoRange.empty();
 
     if (Array.isArray(iterable)) {
-      if (iterable.length == 1)
+      if (iterable.length === 1)
         return MangoRange.from(iterable[0]);
       return new MangoRange(iterable);
     } // if ...
