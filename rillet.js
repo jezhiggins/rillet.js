@@ -91,7 +91,7 @@ function* flatten(iterable) {
       yield item;
 } // flatten
 
-function* uniq(iterable, fn) {
+function* distinct(iterable, fn) {
   const seen = new Set();
   for (const item of iterable) {
     const projection = fn(item);
@@ -100,7 +100,7 @@ function* uniq(iterable, fn) {
     seen.add(projection);
     yield item;
   } // for ...
-} // uniq`
+} // distinct`
 
 function* compact(iterable) {
   for (const item of iterable)
@@ -293,7 +293,8 @@ class MangoRange {
   concat(...iterable2) { return new MangoRange(concat(this.iterable, iterable2)); }
   flat(depth = 1) { return new MangoRange(flat(this.iterable, depth)); }
   flatten() { return new MangoRange(flatten(this.iterable)); }
-  uniq(fn = identity) { return new MangoRange(uniq(this.iterable, fn)); }
+  uniq(fn = identity) { return new MangoRange(distinct(this.iterable, fn)); }
+  distinct(fn = identity) { return new MangoRange(distinct(this.iterable, fn)); }
   compact() { return new MangoRange(compact(this.iterable)); }
   cycle() { return new MangoRange(cycle(this.iterable)); }
 

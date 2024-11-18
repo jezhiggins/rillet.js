@@ -79,9 +79,9 @@ Each modifier method returns a new Range which can be iterated on, or modified w
 * `Range.prototype.drop(count)` discards the first `count` items of the sequence, and returns the remainder
 * `Range.prototype.dropWhile(predicate)` discards items from the start sequence for as long as the predicate is true, returning the remainder
 * `Range.prototype.concat(...items)` creates a lazily concatenated iterable who's elements are all the elements of the sequence followed by all the elements of items
-* `Range.prototype.flat([depth])` flattens any iterables in the sequence, down to the `depth` given. The `depth` is optional and if omitted or is less that 1, it defaults to 1.
+* `Range.prototype.flat([depth])` flattens any iterables in the sequence, down to the `depth` given. The `depth` is optional and if omitted or is less than 1, it defaults to 1.
 * `Range.prototype.flatten()` flattens any iterables in the sequence, creating a new stream which is entirely flat
-* `Range.prototype.uniq([fn])` filters duplicates from the stream.  The projection `fn` is optional, defaulting to the identity function.
+* `Range.prototype.distinct([fn])` filters duplicates from the stream.  The projection `fn` is optional, defaulting to the identity function.
 * `Range.prototype.compact()` removes all falsey values from the stream - `0, false, null, undefined, '', NaN` are all falsey.
 * `Range.prototype.cycle()` returns an infinite sequence, looping over the items in the stream.
 
