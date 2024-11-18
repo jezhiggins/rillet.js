@@ -106,6 +106,7 @@ Strictly speaking, reduce is all you need.  However, for readability and express
 * `Range.prototype.some(predicate)` returns true if one or more of the items in the sequence match the predicate, and false otherwise
 * `Range.prototype.join(separator)` join all the items in the sequence into a string, using the provided separator.  If the separator is not given, the items are separated with a comma.
 * `Range.prototype.toArray()` gathers all the items in the sequence into an array.
+* `Range.prototype.toSet()` gathers all the items in the sequence into a Set.
 
 In the notes above,
 * `fn` has the form `x => operation(x)`, where operation returns a value

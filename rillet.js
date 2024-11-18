@@ -314,6 +314,7 @@ class MangoRange {
 
   join(separator) { return join(this.iterable, separator); }
   toArray() { return Array.from(this.iterable); }
+  toSet() { return new Set(this.iterable); }
 } // class MangoRange
 
 module.exports = MangoRange;
